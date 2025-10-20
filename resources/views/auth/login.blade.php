@@ -145,13 +145,6 @@
                 @enderror
             </div>
 
-            <!-- Remember Me -->
-            <div class="remember">
-                <label for="remember_me">
-                    <input id="remember_me" type="checkbox" name="remember">
-                    {{ __('Remember me') }}
-                </label>
-            </div>
 
             <div class="actions">
                 @if (Route::has('password.request'))

@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Trinidad Boarding House - Booking & Adding</title>
+    <title>Trinidad Boarding House - Suggestions</title>
     <style>
         * {
             margin: 0;
@@ -85,31 +85,59 @@
 <body>
 
     <div class="btn-container">
-        <button class="suggestion-btn" onclick="showSection('tenant')">Show Booking</button>
-        <button class="suggestion-btn" onclick="showSection('landlord')">Show Adding</button>
+        <button class="suggestion-btn" onclick="showSection('tenantbook')">Show Tenant Booking</button>
+        <button class="suggestion-btn" onclick="showSection('landlordadd')">Show Landlord Added Boarding House</button>
         <a href="{{ route('admin.dashboard') }}" class="back-btn">Back to Admin Dashboard</a>
     </div>
 
-    <div id="tenant" class="info-section">
-        <h2>Tenant Booking Info</h2>
+   <div id="tenantbook" class="info-section">
+    <h2>Tenant Booking Info</h2>
+    @forelse ($tenantBooking as $tenantbook)
         <ul>
-            <li>Name: John Doe</li>
-            <li>Contact: john@example.com</li>
-            <li>Boarding House Type Wanted: Single Room</li>
-            <li>Preferred Location: Downtown Area</li>
-            <li>Booking Date: 2025-10-15</li>
+            <li><strong>Name:</strong> {{ $tenantbook->name }}</li>
+            <li><strong>Contact:</strong> {{ $tenantbook->contact }}</li>
+            <li><strong>Uploaded on:</strong> {{ $tenantbook->created_at->format('Y-m-d') }}</li>
         </ul>
-    </div>
+    @empty
+        <p>No tenant booking available.</p>
+    @endforelse
+</div>
 
-    <div id="landlord" class="info-section">
-        <h2>Landlord Adding Info</h2>
+<div id="landlordadd" class="info-section">
+    <h2>Landlord Adding Info</h2>
+    @forelse ($landlordAdding as $landlordAdd)
         <ul>
-            <li>Name: Mary Smith</li>
-            <li>Contact: mary@boardinghouse.com</li>
-            <li>Boarding House Type: Apartment</li>
-            <li>Exclusive: Yes</li>
-            <li>Location: Uptown District</li>
-            <li>Added on: 2025-10-17</li>
+            <li><strong>Name:</strong> {{ $landlordAdd->name }}</li>
+            <li><strong>Contact:</strong> {{ $landlordAdd->contact }}</li>
+            <li><strong>BoardingHouse Name:</strong> {{ $landlordAdd->property_name }}</li>
+            <li><strong>Description:</strong> {{ $landlordAdd->property_description }}</li>
+            <li><strong>Price:</strong> {{ $landlordAdd->property_price }}</li>
+            <li><strong>Uploaded on:</strong> {{ $landlordAdd->created_at->format('Y-m-d') }}</li>
+        </ul>
+    @empty
+        <p>No landlord Added  available BoardingHouse.</p>
+    @endforelse
+</div>
+
+
+    <script>
+        function showSection(sectionId) {
+            // Hide all sections
+            document.querySelectorAll('.info-section').forEach(section => {
+                section.classList.remove('active');
+            });
+
+            // Show selected section
+            const section = document.getElementById(sectionId);
+            if (section) {
+                section.classList.add('active');
+            }
+        }
+    </script>
+
+</body>
+</html>
+
         </ul>
     </div>
 

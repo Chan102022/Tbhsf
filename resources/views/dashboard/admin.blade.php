@@ -102,8 +102,7 @@
     <nav>
         <a href="#">Home</a>
         <a href="{{ route('admin.inquiry') }}">Suggestion</a>
-        <a href="{{ route('admin.management') }}">Booking / Adding</a>
-        <a href="#">Profile</a>
+        <a href="{{ route('admin.management') }}">Booking ||  Adding</a>
         <form method="POST" action="/logout" style="display: inline;">
     <!-- CSRF token for security -->
     <input type="hidden" name="_token" value="{{ csrf_token() }}">
@@ -129,16 +128,16 @@
 
     <div class="content">
         <div class="card">
-            <h2>Welcome to the Dashboard</h2>
-            <p>Manage your bookings, inquiries, and profile easily.</p>
+            <h2>Hello Admin, Welcome Back!</h2>
+            <p>Manage your system bookings, addings , and suggestions. .</p>
         </div>
 
         <div class="card">
             <h2>Quick Stats</h2>
             <ul>
-                <li>Total Inquiries: 15</li>
-                <li>Active Bookings: 8</li>
-                <li>Available Rooms: 5</li>
+                <li>Total Inquiries:0</li>
+                <li>Active Bookings:0</li>
+                <li>Available Rooms:0</li>
             </ul>
         </div>
     </div>

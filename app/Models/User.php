@@ -24,6 +24,10 @@ class User extends Authenticatable
         'email',
         'password',
         'role',
+        'TenantSuggestion',
+        'LandlordSuggestion',
+        'TenantBooking',
+        'LandlordAdding',
     ];
 
     /**

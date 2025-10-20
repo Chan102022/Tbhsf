@@ -11,9 +11,14 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::table('users', function (Blueprint $table) {
-            //
-        });
+        Schema::create('tenant_bookings', function (Blueprint $table) {
+    $table->id();
+    $table->unsignedBigInteger('user_id')->nullable(); // example
+    $table->string('property_name');
+    $table->date('booking_date');
+    $table->timestamps();
+});
+
     }
 
     /**
@@ -21,8 +26,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::table('users', function (Blueprint $table) {
-            //
-        });
+        Schema::dropIfExists('tenant_bookings');
     }
 };

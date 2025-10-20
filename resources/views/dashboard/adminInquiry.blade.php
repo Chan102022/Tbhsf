@@ -90,25 +90,34 @@
         <a href="{{ route('admin.dashboard') }}" class="back-btn">Back to Admin Dashboard</a>
     </div>
 
-    <div id="tenant" class="info-section">
-        <h2>Tenant Uploaded Info</h2>
+   <div id="tenant" class="info-section">
+    <h2>Tenant Uploaded Info</h2>
+    @forelse ($tenantSuggestions as $tenant)
         <ul>
-            <li>Name: John Doe</li>
-            <li>Contact: john@example.com</li>
-            <li>Suggestion: More parking spaces</li>
-            <li>Uploaded on: 2025-10-15</li>
+            <li><strong>Name:</strong> {{ $tenant->name }}</li>
+            <li><strong>Contact:</strong> {{ $tenant->contact }}</li>
+            <li><strong>Suggestion:</strong> {{ $tenant->suggestion }}</li>
+            <li><strong>Uploaded on:</strong> {{ $tenant->created_at->format('Y-m-d') }}</li>
         </ul>
-    </div>
+    @empty
+        <p>No tenant suggestions available.</p>
+    @endforelse
+</div>
 
-    <div id="landlord" class="info-section">
-        <h2>Landlord Uploaded Info</h2>
+<div id="landlord" class="info-section">
+    <h2>Landlord Uploaded Info</h2>
+    @forelse ($landlordSuggestions as $landlord)
         <ul>
-            <li>Name: Mary Smith</li>
-            <li>Contact: mary@boardinghouse.com</li>
-            <li>Suggestion: Upgrade security system</li>
-            <li>Uploaded on: 2025-10-17</li>
+            <li><strong>Name:</strong> {{ $landlord->name }}</li>
+            <li><strong>Contact:</strong> {{ $landlord->contact }}</li>
+            <li><strong>Suggestion:</strong> {{ $landlord->suggestion }}</li>
+            <li><strong>Uploaded on:</strong> {{ $landlord->created_at->format('Y-m-d') }}</li>
         </ul>
-    </div>
+    @empty
+        <p>No landlord suggestions available.</p>
+    @endforelse
+</div>
+
 
     <script>
         function showSection(sectionId) {

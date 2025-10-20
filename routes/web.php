@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\AdminController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -39,13 +40,14 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
     /** Additional admin routes */
     Route::middleware(['role:admin'])->group(function() {
-        Route::get('/dashboard/inquiry', function () {
-            return view('dashboard.adminInquiry');
-        })->name('admin.inquiry');
+        Route::get('/dashboard/inquiry', [AdminController::class, 'inquiry'])->name('admin.inquiry');
 
-        Route::get('/dashboard/management', function () {
-            return view('dashboard.adminManagement');
-        })->name('admin.management');
+
+   
+    Route::get('/dashboard/adding/booking', [AdminController::class, 'showAdding/Booking'])->name('admin.showAdding/Booking');
+    
+    Route::get('/dashboard/management', [AdminController::class, 'management'])->name('admin.management');
+    
     });
 });
 
