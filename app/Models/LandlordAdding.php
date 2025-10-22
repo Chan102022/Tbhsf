@@ -1,5 +1,7 @@
 <?php
 
+// app/Models/LandlordAdding.php
+
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -10,8 +12,18 @@ class LandlordAdding extends Model
     use HasFactory;
 
     protected $fillable = [
+        'user_id',
         'name',
         'contact',
-        'adding',
+        'property_name',
+        'property_description',
+        'property_price',
+        'adding_date',
     ];
+
+    // Optional: relationship to User
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
 }

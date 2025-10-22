@@ -80,5 +80,19 @@ public function deleteLandlordSuggestion($id)
 
     return Redirect::back()->with('success', 'Landlord suggestion deleted successfully.');
 }
+public function deleteBoarding($id)
+{
+    $boarding = LandlordAdding::findOrFail($id);
+    $boarding->delete();
+
+    return redirect()->back()->with('success', 'Boarding house deleted successfully.');
+}
+public function tenantDashboards()
+{
+    $boardingHouses = \App\Models\LandlordAdding::latest()->get();
+    return view('dashboard.tenant.tenantDashboard', compact('boardingHouses'));
+}
+
+
 
 }

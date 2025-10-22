@@ -43,6 +43,9 @@ Route::middleware(['auth', 'verified'])->group(function () {
         Route::delete('/admin/suggestion/tenant/{id}', [AdminController::class, 'deleteTenantSuggestion'])->name('admin.suggestion.tenant.delete');
 Route::delete('/admin/suggestion/landlord/{id}', [AdminController::class, 'deleteLandlordSuggestion'])->name('admin.suggestion.landlord.delete');
 
+Route::delete('/admin/boarding/{id}', [App\Http\Controllers\AdminController::class, 'deleteBoarding'])->name('admin.boarding.delete');
+
+
 
         // ✅ CORRECT ROUTE for Manage Accounts page
         Route::get('/admin/manage-account', [AdminController::class, 'manageAccounts'])->name('admin.accountmanage');
@@ -57,6 +60,11 @@ Route::delete('/admin/suggestion/landlord/{id}', [AdminController::class, 'delet
             return view('dashboard.tenant.tenant');
         })->name('tenant.dashboard');
     });
+Route::get('/tenant/booking', [AdminController::class, 'tenantDashboards'])->name('tenantdash.book');
+    
+
+    Route::post('/tenant/book', [App\Http\Controllers\TenantController::class, 'book'])->name('tenant.book');
+
 
     /** Landlord Dashboard */
     Route::middleware(['role:landlord'])->group(function () {
@@ -71,6 +79,9 @@ Route::delete('/admin/suggestion/landlord/{id}', [AdminController::class, 'delet
          Route::get('/landloard/suggestions', function () {
             return view('dashboard.landlord.suggestionForm');
         })->name('landlord.suggest');
+         Route::get('/landloard/adding', function () {
+            return view('dashboard.landlord.addBoarding');
+        })->name('landlord.add');
 
     Route::post('/admin/dashboard/adminCreate', [AdminController::class, 'storeAdminCreatedUser'])->name('admin.account.store');
     Route::middleware(['auth', 'role:tenant'])->group(function () {
@@ -83,6 +94,14 @@ Route::middleware(['auth', 'role:landlord'])->group(function () {
     Route::get('/landlord/suggestion', [LandlordController::class, 'create'])->name('landlord.suggestion.form');
     Route::post('/landlord/suggestion', [LandlordController::class, 'store'])->name('landlord.suggestion.submit');
 });
+Route::middleware(['auth', 'role:landlord'])->group(function () {
+    Route::get('/landlord/boarding/add', function () {
+        return view('dashboard.landlord.addBoarding');
+    })->name('landlord.boarding.add');
+
+    Route::post('/landlord/boarding/store', [LandlordController::class, 'storeBoarding'])->name('landlord.boarding.store');
+});
+
 
 
 });

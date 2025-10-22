@@ -102,7 +102,7 @@
     <nav>
         <a href="#">Home</a>
         <a href="{{ route('landlord.suggest') }}">Suggestions</a>
-        <a href="#">Adding </a>
+        <a href="{{ route('landlord.add') }}">Adding </a>
         <a href="#">LandLord Profile</a>
         <form method="POST" action="/logout" style="display: inline;">
         <!-- CSRF token for security -->

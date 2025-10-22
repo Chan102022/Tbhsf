@@ -4,6 +4,10 @@ namespace App\Http\Controllers;
 
 use App\Models\TenantSuggestion;
 use Illuminate\Http\Request;
+use App\Models\LandlordAdding;
+use App\Models\TenantBooking;
+
+
 
 class TenantController extends Controller
 {
@@ -27,4 +31,20 @@ class TenantController extends Controller
         return redirect()->route('tenant.suggestion.form')
                          ->with('success', 'Suggestion submitted successfully!');
     }
+    public function book(Request $request)
+{
+    TenantBooking::create([
+        'user_id' => auth()->id(),
+        'name' => auth()->user()->name,
+        'contact' => auth()->user()->contact ?? 'Not Provided',
+        'landlord_id' => $request->landlord_id,
+        'landlord_name' => $request->landlord_name,
+        'landlord_contact' => $request->landlord_contact,
+    ]);
+
+    return redirect()->back()->with('success', 'You have successfully booked a boarding house!');
+}
+
+
+
 }

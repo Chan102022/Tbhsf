@@ -102,7 +102,7 @@
     <nav>
         <a href="#">Home</a>
         <a href="{{ route('tenant.suggest') }}">Suggestions</a>
-        <a href="#">Booking</a>
+        <a href="{{route('tenantdash.book')}}">Booking</a>
         <a href="#">Tenant Profile</a>
         <form method="POST" action="/logout" style="display: inline;">
         <!-- CSRF token for security -->
