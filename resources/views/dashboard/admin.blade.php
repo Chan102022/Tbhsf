@@ -100,31 +100,34 @@
     </header>
 
     <nav>
-        <a href="#">Home</a>
-        <a href="{{ route('admin.inquiry') }}">Suggestion</a>
-        <a href="{{ route('admin.management') }}">Booking ||  Adding</a>
-        <form method="POST" action="/logout" style="display: inline;">
-    <!-- CSRF token for security -->
-    <input type="hidden" name="_token" value="{{ csrf_token() }}">
-    <button type="submit" style="
-        background: none;
-        border: none;
-        color: #a0d8ef;
-        font-weight: 600;
-        font-size: 1rem;
-        cursor: pointer;
-        letter-spacing: 0.5px;
-        padding: 0;
-        margin-left: auto;
-        transition: color 0.3s ease, text-shadow 0.3s ease;
-    "
-    onmouseover="this.style.color='#1abc9c'; this.style.textShadow='0 0 6px #1abc9caa';"
-    onmouseout="this.style.color='#a0d8ef'; this.style.textShadow='none';"
-    >
-        Logout
-    </button>
-</form>
-    </nav>
+    <a href="#">Home</a>
+    <a href="{{ route('admin.inquiry') }}">Suggestion</a>
+    <a href="{{ route('admin.management') }}">Booking ||  Adding</a>
+    <a href="{{ route('admin.account') }}">Create Account</a> 
+    <a href="{{ route('admin.accountmanage') }}">Manage Account</a>
+    <form method="POST" action="/logout" style="display: inline;">
+        <!-- CSRF token for security -->
+        <input type="hidden" name="_token" value="{{ csrf_token() }}">
+        <button type="submit" style="
+            background: none;
+            border: none;
+            color: #a0d8ef;
+            font-weight: 600;
+            font-size: 1rem;
+            cursor: pointer;
+            letter-spacing: 0.5px;
+            padding: 0;
+            margin-left: auto;
+            transition: color 0.3s ease, text-shadow 0.3s ease;
+        "
+        onmouseover="this.style.color='#1abc9c'; this.style.textShadow='0 0 6px #1abc9caa';"
+        onmouseout="this.style.color='#a0d8ef'; this.style.textShadow='none';"
+        >
+            Logout
+        </button>
+    </form>
+</nav>
+
 
     <div class="content">
         <div class="card">

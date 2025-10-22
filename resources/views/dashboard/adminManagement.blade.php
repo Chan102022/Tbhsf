@@ -137,24 +137,3 @@
 
 </body>
 </html>
-
-        </ul>
-    </div>
-
-    <script>
-        function showSection(sectionId) {
-            // Hide all sections
-            document.querySelectorAll('.info-section').forEach(section => {
-                section.classList.remove('active');
-            });
-
-            // Show selected section
-            const section = document.getElementById(sectionId);
-            if (section) {
-                section.classList.add('active');
-            }
-        }
-    </script>
-
-</body>
-</html>

@@ -82,6 +82,12 @@
         }
     </style>
 </head>
+@if (session('success'))
+    <p style="text-align:center; color:#2ecc71; margin-bottom: 20px;">
+        {{ session('success') }}
+    </p>
+@endif
+
 <body>
 
     <div class="btn-container">
@@ -93,29 +99,45 @@
    <div id="tenant" class="info-section">
     <h2>Tenant Uploaded Info</h2>
     @forelse ($tenantSuggestions as $tenant)
-        <ul>
-            <li><strong>Name:</strong> {{ $tenant->name }}</li>
-            <li><strong>Contact:</strong> {{ $tenant->contact }}</li>
-            <li><strong>Suggestion:</strong> {{ $tenant->suggestion }}</li>
-            <li><strong>Uploaded on:</strong> {{ $tenant->created_at->format('Y-m-d') }}</li>
-        </ul>
-    @empty
-        <p>No tenant suggestions available.</p>
-    @endforelse
+    <ul>
+        <li><strong>Name:</strong> {{ $tenant->name }}</li>
+        <li><strong>Contact:</strong> {{ $tenant->contact }}</li>
+        <li><strong>Suggestion:</strong> {{ $tenant->suggestion }}</li>
+        <li><strong>Uploaded on:</strong> {{ $tenant->created_at->format('Y-m-d') }}</li>
+        <li>
+            <form action="{{ route('admin.suggestion.tenant.delete', $tenant->id) }}" method="POST" onsubmit="return confirm('Are you sure you want to delete this tenant suggestion?');">
+                @csrf
+                @method('DELETE')
+                <button type="submit" style="margin-top: 10px; padding: 6px 12px; background-color: #e74c3c; color: white; border: none; border-radius: 6px; cursor: pointer;">Delete</button>
+            </form>
+        </li>
+    </ul>
+@empty
+    <p>No tenant suggestions available.</p>
+@endforelse
+
 </div>
 
 <div id="landlord" class="info-section">
     <h2>Landlord Uploaded Info</h2>
-    @forelse ($landlordSuggestions as $landlord)
-        <ul>
-            <li><strong>Name:</strong> {{ $landlord->name }}</li>
-            <li><strong>Contact:</strong> {{ $landlord->contact }}</li>
-            <li><strong>Suggestion:</strong> {{ $landlord->suggestion }}</li>
-            <li><strong>Uploaded on:</strong> {{ $landlord->created_at->format('Y-m-d') }}</li>
-        </ul>
-    @empty
-        <p>No landlord suggestions available.</p>
-    @endforelse
+  @forelse ($landlordSuggestions as $landlord)
+    <ul>
+        <li><strong>Name:</strong> {{ $landlord->name }}</li>
+        <li><strong>Contact:</strong> {{ $landlord->contact }}</li>
+        <li><strong>Suggestion:</strong> {{ $landlord->suggestion }}</li>
+        <li><strong>Uploaded on:</strong> {{ $landlord->created_at->format('Y-m-d') }}</li>
+        <li>
+            <form action="{{ route('admin.suggestion.landlord.delete', $landlord->id) }}" method="POST" onsubmit="return confirm('Are you sure you want to delete this landlord suggestion?');">
+                @csrf
+                @method('DELETE')
+                <button type="submit" style="margin-top: 10px; padding: 6px 12px; background-color: #e74c3c; color: white; border: none; border-radius: 6px; cursor: pointer;">Delete</button>
+            </form>
+        </li>
+    </ul>
+@empty
+    <p>No landlord suggestions available.</p>
+@endforelse
+
 </div>
 
 

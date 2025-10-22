@@ -101,9 +101,29 @@
 
     <nav>
         <a href="#">Home</a>
-        <a href="#">Inquiry</a>
+        <a href="{{ route('tenant.suggest') }}">Suggestions</a>
         <a href="#">Booking</a>
         <a href="#">Tenant Profile</a>
+        <form method="POST" action="/logout" style="display: inline;">
+        <!-- CSRF token for security -->
+        <input type="hidden" name="_token" value="{{ csrf_token() }}">
+        <button type="submit" style="
+            background: none;
+            border: none;
+            color: #a0d8ef;
+            font-weight: 600;
+            font-size: 1rem;
+            cursor: pointer;
+            letter-spacing: 0.5px;
+            padding: 0;
+            margin-left: auto;
+            transition: color 0.3s ease, text-shadow 0.3s ease;
+        "
+        onmouseover="this.style.color='#1abc9c'; this.style.textShadow='0 0 6px #1abc9caa';"
+        onmouseout="this.style.color='#a0d8ef'; this.style.textShadow='none';"
+        >
+            Logout
+        </button>
     </nav>
 
     <div class="content">

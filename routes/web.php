@@ -1,54 +1,90 @@
 <?php
 
 use App\Http\Controllers\ProfileController;
-use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AdminController;
+use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\TenantController;
+use App\Http\Controllers\LandlordController;
 
 Route::get('/', function () {
     return view('welcome');
 });
 
-/** Basic dashboards for authenticated users */
 Route::middleware(['auth', 'verified'])->group(function () {
+
     Route::get('/dashboard', function () {
         return view('dashboard');
     })->name('dashboard');
 
-    /** Profile management */
+    // Profile
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 
-    /** Role‑based dashboards */
+    /** Admin Dashboard & Routes */
     Route::middleware(['role:admin'])->group(function () {
+
         Route::get('/admin/dashboard', function () {
             return view('dashboard.admin');
         })->name('admin.dashboard');
+
+        Route::get('/admin/inquiry', [AdminController::class, 'inquiry'])->name('admin.inquiry');
+
+        Route::get('/admin/management', [AdminController::class, 'management'])->name('admin.management');
+
+        Route::get('/admin/create', function () {
+            return view('dashboard.adminCreate');
+        })->name('admin.account');
+
+         Route::get('/admin/manage', function () {
+            return view('dashboard.adminManagement');
+        })->name('admin.manageaccount');
+
+        Route::delete('/admin/suggestion/tenant/{id}', [AdminController::class, 'deleteTenantSuggestion'])->name('admin.suggestion.tenant.delete');
+Route::delete('/admin/suggestion/landlord/{id}', [AdminController::class, 'deleteLandlordSuggestion'])->name('admin.suggestion.landlord.delete');
+
+
+        // ✅ CORRECT ROUTE for Manage Accounts page
+        Route::get('/admin/manage-account', [AdminController::class, 'manageAccounts'])->name('admin.accountmanage');
+
+        // ✅ Delete account route
+        Route::delete('/admin/manage-account/{id}', [AdminController::class, 'deleteAccount'])->name('admin.account.delete');
     });
 
+    /** Tenant Dashboard */
     Route::middleware(['role:tenant'])->group(function () {
-        Route::get('/tenant/dashboard', function () {
-            return view('dashboard.tenant');
+        Route::get('/dashboard/tenant', function () {
+            return view('dashboard.tenant.tenant');
         })->name('tenant.dashboard');
     });
 
+    /** Landlord Dashboard */
     Route::middleware(['role:landlord'])->group(function () {
-        Route::get('/landlord/dashboard', function () {
-            return view('dashboard.landlord');
+        Route::get('/dashboard/landlord', function () {
+            return view('dashboard.landlord.landlord');
         })->name('landlord.dashboard');
     });
 
-    /** Additional admin routes */
-    Route::middleware(['role:admin'])->group(function() {
-        Route::get('/dashboard/inquiry', [AdminController::class, 'inquiry'])->name('admin.inquiry');
+      Route::get('/tenant/suggestions', function () {
+            return view('dashboard.tenant.suggestionForm');
+        })->name('tenant.suggest');
+         Route::get('/landloard/suggestions', function () {
+            return view('dashboard.landlord.suggestionForm');
+        })->name('landlord.suggest');
 
-
-   
-    Route::get('/dashboard/adding/booking', [AdminController::class, 'showAdding/Booking'])->name('admin.showAdding/Booking');
-    
-    Route::get('/dashboard/management', [AdminController::class, 'management'])->name('admin.management');
-    
-    });
+    Route::post('/admin/dashboard/adminCreate', [AdminController::class, 'storeAdminCreatedUser'])->name('admin.account.store');
+    Route::middleware(['auth', 'role:tenant'])->group(function () {
+    Route::get('/tenant/suggestion', [TenantController::class, 'create'])->name('tenant.suggestion.form');
+    Route::post('/tenant/suggestion', [TenantController::class, 'store'])->name('tenant.suggestion.submit');
 });
 
-require __DIR__.'/auth.php';
+
+Route::middleware(['auth', 'role:landlord'])->group(function () {
+    Route::get('/landlord/suggestion', [LandlordController::class, 'create'])->name('landlord.suggestion.form');
+    Route::post('/landlord/suggestion', [LandlordController::class, 'store'])->name('landlord.suggestion.submit');
+});
+
+
+});
+
+require __DIR__ . '/auth.php';

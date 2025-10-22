@@ -109,65 +109,33 @@
     <div class="form-container">
         <h1>Create Your Account</h1>
 
-        <form method="POST" action="{{ route('register') }}">
-            @csrf
+       <form method="POST" action="{{ route('admin.account.store') }}">
+    @csrf
 
-            <!-- Name -->
-            <div>
-                <label for="name">{{ __('Name') }}</label>
-                <input id="name" type="text" name="name" value="{{ old('name') }}" required autofocus autocomplete="name">
-                @error('name')
-                    <div class="error">{{ $message }}</div>
-                @enderror
-            </div>
+    <label for="name">Name</label>
+    <input type="text" name="name" required>
 
-            <!-- Email -->
-            <div>
-                <label for="email">{{ __('Email') }}</label>
-                <input id="email" type="email" name="email" value="{{ old('email') }}" required autocomplete="username">
-                @error('email')
-                    <div class="error">{{ $message }}</div>
-                @enderror
-            </div>
+    <label for="email">Email</label>
+    <input type="email" name="email" required>
 
-            <!-- Role -->
-            <div>
-                <label for="role">{{ __('Register As') }}</label>
-                <select id="role" name="role" required>
-                    <option value="">-- Select Role --</option>
-                    <option value="tenant" {{ old('role') == 'tenant' ? 'selected' : '' }}>Tenant</option>
-                    <option value="landlord" {{ old('role') == 'landlord' ? 'selected' : '' }}>Landlord/Landlady</option>
-                </select>
-                @error('role')
-                    <div class="error">{{ $message }}</div>
-                @enderror
-            </div>
+    <label for="role">Role</label>
+    <select name="role" required>
+        <option value="">-- Select Role --</option>
+        <option value="admin">Admin</option>
+        <option value="tenant">Tenant</option>
+        <option value="landlord">Landlord</option>
+    </select>
 
-            <!-- Password -->
-            <div>
-                <label for="password">{{ __('Password') }}</label>
-                <input id="password" type="password" name="password" required autocomplete="new-password">
-                @error('password')
-                    <div class="error">{{ $message }}</div>
-                @enderror
-            </div>
+    <label for="password">Password</label>
+    <input type="password" name="password" required>
 
-            <!-- Confirm Password -->
-            <div>
-                <label for="password_confirmation">{{ __('Confirm Password') }}</label>
-                <input id="password_confirmation" type="password" name="password_confirmation" required autocomplete="new-password">
-                @error('password_confirmation')
-                    <div class="error">{{ $message }}</div>
-                @enderror
-            </div>
+    <label for="password_confirmation">Confirm Password</label>
+    <input type="password" name="password_confirmation" required>
 
-            <div class="actions mt-4">
-                <a href="{{ route('login') }}">{{ __('Already registered?') }}</a>
-                <button type="submit">
-                    {{ __('Register') }}
-                </button>
-            </div>
-        </form>
+    <button type="submit">Create Account</button>
+     <a href="{{ route('admin.dashboard') }}" class="back-link">← Back to Admin Dashboard</a>
+</form>
+
     </div>
 </body>
-</html>
+</html>  
