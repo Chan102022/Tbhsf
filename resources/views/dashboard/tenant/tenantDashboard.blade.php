@@ -14,7 +14,7 @@
         border-radius: 10px;
         padding: 25px;
         box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
-        margin-bottom: 30px;
+        margin-bottom: 40px; /* Increased space between cards */
         max-width: 700px;
         margin-left: auto;
         margin-right: auto;
@@ -70,6 +70,12 @@
     .btn-back:hover {
         background-color: #16a085;
     }
+
+    /* New CSS to add spacing after the booking form */
+    .booking-form {
+        margin-top: 15px;
+        margin-bottom: 30px;  /* Adds space after the form */
+    }
 </style>
 
 @if(session('success'))
@@ -89,7 +95,7 @@
         <p><strong>Price:</strong> ₱{{ $house->property_price }}</p>
         <p><strong>Added On:</strong> {{ $house->adding_date }}</p>
 
-        <form action="{{ route('tenant.book') }}" method="POST" onsubmit="return confirm('Book this boarding house?');">
+        <form action="{{ route('tenant.book') }}" method="POST" class="booking-form" onsubmit="return confirm('Book this boarding house?');">
             @csrf
             <input type="hidden" name="property_name" value="{{ $house->property_name }}">
             <input type="hidden" name="landlord_id" value="{{ $house->user_id }}">

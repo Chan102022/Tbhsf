@@ -103,12 +103,20 @@
             <li><strong>Name:</strong> {{ $tenantbook->name }}</li>
             <li><strong>Contact:</strong> {{ $tenantbook->contact }}</li>
             <li><strong>Uploaded on:</strong> {{ $tenantbook->created_at->format('Y-m-d') }}</li>
+            <li>
+                <form action="{{ route('admin.tenantbooking.delete', $tenantbook->id) }}" method="POST" onsubmit="return confirm('Are you sure you want to delete this tenant booking?');">
+                    @csrf
+                    @method('DELETE')
+                    <button type="submit" style="margin-top:10px;background-color:#e74c3c;color:white;padding:8px 12px;border:none;border-radius:5px;cursor:pointer;">
+                        Delete
+                    </button>
+                </form>
+            </li>
         </ul>
     @empty
         <p>No tenant booking available.</p>
     @endforelse
 </div>
-
 <div id="landlordadd" class="info-section">
     <h2>Landlord Adding Info</h2>
    @forelse ($landlordAdding as $landlordAdd)

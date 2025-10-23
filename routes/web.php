@@ -101,6 +101,7 @@ Route::middleware(['auth', 'role:landlord'])->group(function () {
 
     Route::post('/landlord/boarding/store', [LandlordController::class, 'storeBoarding'])->name('landlord.boarding.store');
 });
+Route::delete('/admin/tenant-booking/{id}', [AdminController::class, 'deleteTenantBooking'])->name('admin.tenantbooking.delete');
 
 
 

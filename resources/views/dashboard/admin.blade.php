@@ -95,7 +95,7 @@
 <body>
 
     <header>
-        <h1>Trinidad Boarding House Dashboard</h1>
+        <h1>Trinidad Boarding House System</h1>
         <h2>Admin Dashboard</h2>
     </header>
 

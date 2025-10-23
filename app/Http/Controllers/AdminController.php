@@ -92,7 +92,13 @@ public function tenantDashboards()
     $boardingHouses = \App\Models\LandlordAdding::latest()->get();
     return view('dashboard.tenant.tenantDashboard', compact('boardingHouses'));
 }
+public function deleteTenantBooking($id)
+{
+    $booking = TenantBooking::findOrFail($id);
+    $booking->delete();
 
+    return redirect()->back()->with('success', 'Tenant booking deleted successfully.');
+}
 
 
 }
