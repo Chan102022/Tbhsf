@@ -31,7 +31,7 @@ class TenantController extends Controller
         return redirect()->route('tenant.suggestion.form')
                          ->with('success', 'Suggestion submitted successfully!');
     }
-    public function book(Request $request)
+ public function book(Request $request)
 {
     TenantBooking::create([
         'user_id' => auth()->id(),
@@ -40,10 +40,14 @@ class TenantController extends Controller
         'landlord_id' => $request->landlord_id,
         'landlord_name' => $request->landlord_name,
         'landlord_contact' => $request->landlord_contact,
+        'property_name' => $request->property_name,
+        'booking_date' => now(),  // <--- add this line
     ]);
 
     return redirect()->back()->with('success', 'You have successfully booked a boarding house!');
 }
+
+
 
 
 

@@ -64,7 +64,7 @@ Route::get('/tenant/booking', [AdminController::class, 'tenantDashboards'])->nam
     
 
     Route::post('/tenant/book', [App\Http\Controllers\TenantController::class, 'book'])->name('tenant.book');
-
+   
 
     /** Landlord Dashboard */
     Route::middleware(['role:landlord'])->group(function () {

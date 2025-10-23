@@ -136,7 +136,7 @@
         </div>
 
         <div class="card">
-            <h2>Quick Stats</h2>
+            <h2>Overview Cards</h2>
             <ul>
                 <li>Total Inquiries:0</li>
                 <li>Active Bookings:0</li>

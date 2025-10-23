@@ -9,9 +9,15 @@ class TenantBooking extends Model
 {
     use HasFactory;
 
-    protected $fillable = [
-        'name',
-        'contact',
-        'booking',
-    ];
+   protected $fillable = [
+    'user_id',
+    'name',
+    'contact',
+    'landlord_id',
+    'landlord_name',
+    'landlord_contact',
+    'property_name', // ✅ add this
+     'booking_date',  
+];
+
 }
