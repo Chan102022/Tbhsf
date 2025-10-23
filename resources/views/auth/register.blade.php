@@ -130,6 +130,16 @@
                 @enderror
             </div>
 
+            <!-- Contact Number -->
+<div>
+    <label for="contact">{{ __('Contact Number') }}</label>
+    <input id="contact" type="text" name="contact" value="{{ old('contact') }}" required autocomplete="tel" placeholder="e.g., +639123456789">
+    @error('contact')
+        <div class="error">{{ $message }}</div>
+    @enderror
+</div>
+
+
             <!-- Role -->
             <div>
                 <label for="role">{{ __('Register As') }}</label>
