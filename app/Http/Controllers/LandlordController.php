@@ -14,7 +14,7 @@ class LandlordController extends Controller
         return view('dashboard.landlord.suggestionForm');
     }
 
-    // Handle form submission
+    // Handle suggestion submission
     public function store(Request $request)
     {
         $validated = $request->validate([
@@ -28,28 +28,34 @@ class LandlordController extends Controller
         return redirect()->route('landlord.suggestion.form')
                          ->with('success', 'Suggestion submitted successfully!');
     }
+
+    // Handle boarding house submission
     public function storeBoarding(Request $request)
-{
-    $request->validate([
-        'name' => 'required|string|max:255',
-        'contact' => 'required|string|max:255',
-        'property_name' => 'required|string|max:255',
-        'property_description' => 'required|string|max:1000',
-        'property_price' => 'required|string|max:255',
-        'adding_date' => 'required|date',
-    ]);
+    {
+        $validated = $request->validate([
+            'name' => 'required|string|max:255',
+            'contact' => 'required|string|max:255',
+            'property_name' => 'required|string|max:255',
+            'property_description' => 'required|string|max:1000',
+            'property_price' => 'required|string|max:255',
+            'adding_date' => 'required|date',
+            'image' => 'nullable|image|mimes:jpg,jpeg,png|max:2048', // 2MB max
+            'latitude' => 'nullable|numeric',
+            'longitude' => 'nullable|numeric',
+        ]);
 
-    LandlordAdding::create([
-        'user_id' => auth()->id(),
-        'name' => $request->name,
-        'contact' => $request->contact,
-        'property_name' => $request->property_name,
-        'property_description' => $request->property_description,
-        'property_price' => $request->property_price,
-        'adding_date' => $request->adding_date,
-    ]);
+        // Handle image upload
+        if ($request->hasFile('image')) {
+            $imagePath = $request->file('image')->store('boarding_images', 'public');
+            $validated['image'] = $imagePath;
+        }
 
-    return redirect()->back()->with('success', 'Boarding house added successfully!');
-}
+        // Add the authenticated landlord ID (if applicable)
+        $validated['user_id'] = auth()->id();
 
+        // Save record to database
+        LandlordAdding::create($validated);
+
+        return redirect()->back()->with('success', 'Boarding house added successfully!');
+    }
 }

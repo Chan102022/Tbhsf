@@ -19,6 +19,9 @@ class LandlordAdding extends Model
         'property_description',
         'property_price',
         'adding_date',
+        'image',
+        'latitude',
+        'longitude',
     ];
 
     // Optional: relationship to User

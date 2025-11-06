@@ -12,13 +12,16 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('tenant_bookings', function (Blueprint $table) {
-    $table->id();
-    $table->unsignedBigInteger('user_id')->nullable(); // example
-    $table->string('property_name');
-    $table->date('booking_date');
-    $table->timestamps();
-});
-
+            $table->id();
+            $table->unsignedBigInteger('user_id')->nullable(); // optional: tenant's user ID
+            $table->string('name');
+            $table->string('contact');
+            $table->date('booking_date');
+            $table->string('image')->nullable();        // optional uploaded image
+            $table->decimal('latitude', 10, 7)->nullable();  // map latitude
+            $table->decimal('longitude', 10, 7)->nullable(); // map longitude
+            $table->timestamps();
+        });
     }
 
     /**

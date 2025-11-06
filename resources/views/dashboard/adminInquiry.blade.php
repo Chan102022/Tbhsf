@@ -4,7 +4,7 @@
     <div class="btn-container">
         <button class="suggestion-btn" onclick="showSection('tenant')">Show Tenant Messages</button>
         <button class="suggestion-btn" onclick="showSection('landlord')">Show Landlord Messages</button>
-    
+   
 
     <div id="tenant" class="info-section">
         <h2>Tenant Uploaded Info</h2>

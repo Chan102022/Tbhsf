@@ -1,10 +1,7 @@
 @extends('admin.layout')
 
 @section('content')
-    <div class="card">
-        <h2>Hello Admin, Welcome Back!</h2>
-        <p>Manage your system bookings, addings, and suggestions.</p>
-    </div>
+ 
 
     <div class="card">
         <h2>Overview Users</h2>

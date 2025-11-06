@@ -100,22 +100,46 @@
 
 @forelse ($boardingHouses as $house)
     <div class="card">
-        <p><strong>Landlord Name:</strong> {{ $house->name }}</p>
-        <p><strong>Contact:</strong> {{ $house->contact }}</p>
-        <p><strong>Boarding House:</strong> {{ $house->property_name }}</p>
-        <p><strong>Description:</strong> {{ $house->property_description }}</p>
-        <p><strong>Price:</strong> ₱{{ $house->property_price }}</p>
-        <p><strong>Added On:</strong> {{ $house->adding_date }}</p>
+    <p><strong>Landlord Name:</strong> {{ $house->name }}</p>
+    <p><strong>Contact:</strong> {{ $house->contact }}</p>
+    <p><strong>Boarding House:</strong> {{ $house->property_name }}</p>
+    <p><strong>Description:</strong> {{ $house->property_description }}</p>
+    <p><strong>Price:</strong> ₱{{ $house->property_price }}</p>
+    <p><strong>Added On:</strong> {{ $house->adding_date }}</p>
 
-        <form action="{{ route('tenant.book') }}" method="POST" class="booking-form" onsubmit="return confirm('Book this boarding house?');">
-            @csrf
-            <input type="hidden" name="property_name" value="{{ $house->property_name }}">
-            <input type="hidden" name="landlord_id" value="{{ $house->user_id }}">
-            <input type="hidden" name="landlord_name" value="{{ $house->name }}">
-            <input type="hidden" name="landlord_contact" value="{{ $house->contact }}">
-            <button type="submit" class="btn-book">Book Now</button>
-        </form>
-    </div>
+    @if($house->image)
+        <p><strong>Image:</strong></p>
+        <img src="{{ asset('storage/' . $house->image) }}" alt="Boarding House Image" style="width:100%; max-height:300px; border-radius:10px; margin-bottom:15px;">
+    @endif
+
+    @if($house->latitude && $house->longitude)
+       <div id="map-{{ $house->id }}" style="width:100%; height:250px; border-radius:10px; margin-bottom:15px;"></div>
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+      var map{{ $house->id }} = L.map('map-{{ $house->id }}')
+          .setView([{{ $house->latitude }}, {{ $house->longitude }}], 15);
+
+      L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+          maxZoom: 19,
+          attribution: '&copy; OpenStreetMap contributors'
+      }).addTo(map{{ $house->id }});
+
+      L.marker([{{ $house->latitude }}, {{ $house->longitude }}]).addTo(map{{ $house->id }});
+  });
+</script>
+
+    @endif
+
+    <form action="{{ route('tenant.book') }}" method="POST" class="booking-form" onsubmit="return confirm('Reserve this boarding house?');">
+        @csrf
+        <input type="hidden" name="property_name" value="{{ $house->property_name }}">
+        <input type="hidden" name="landlord_id" value="{{ $house->user_id }}">
+        <input type="hidden" name="landlord_name" value="{{ $house->name }}">
+        <input type="hidden" name="landlord_contact" value="{{ $house->contact }}">
+        <button type="submit" class="btn-book">Reserve Now</button>
+    </form>
+</div>
+
 @empty
     <p style="text-align:center;">No boarding houses available at the moment.</p>
 @endforelse
