@@ -12,6 +12,7 @@
         }
 
         body {
+            
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             background-color: #2c3e50;
             color: #a0d8ef;
@@ -25,8 +26,8 @@
 
         header h1 {
             font-size: 26px;
-            color: #1abc9c;
-            text-shadow: 0 0 8px #1abc9c88;
+            color: #f6fbfaff;
+            text-shadow: 0 0 8px #06c7f888;
         }
 
         nav {
@@ -38,7 +39,7 @@
         }
 
         nav a {
-            color: #a0d8ef;
+            color: #37b6e8ff;
             text-decoration: none;
             font-weight: 600;
             font-size: 1rem;
@@ -47,7 +48,7 @@
         }
 
         nav a:hover {
-            color: #1abc9c;
+            color: #37b6e8ff;
             text-shadow: 0 0 6px #1abc9caa;
         }
 
@@ -71,7 +72,7 @@
 
         .card h2 {
             font-size: 1.5rem;
-            color: #1abc9c;
+            color: #37b6e8ff;
             margin-bottom: 10px;
             text-shadow: 0 0 6px #1abc9c77;
         }
@@ -101,8 +102,8 @@
 
     <nav>
         <a href="#">Home</a>
-        <a href="{{ route('tenant.suggest') }}">Suggestions</a>
         <a href="{{route('tenantdash.book')}}">Booking</a>
+        <a href="{{ route('tenant.suggest') }}">Contact</a>
         <a href="#">Tenant Profile</a>
         <form method="POST" action="/logout" style="display: inline;">
         <!-- CSRF token for security -->
@@ -119,27 +120,20 @@
             margin-left: auto;
             transition: color 0.3s ease, text-shadow 0.3s ease;
         "
-        onmouseover="this.style.color='#1abc9c'; this.style.textShadow='0 0 6px #1abc9caa';"
+        onmouseover="this.style.color='#37b6e8ff'; this.style.textShadow='0 0 6px #37b6e8ff';"
         onmouseout="this.style.color='#a0d8ef'; this.style.textShadow='none';"
         >
             Logout
         </button>
     </nav>
 
-    <div class="content">
-        <div class="card">
-            <h2>Welcome to the Dashboard</h2>
-            <p>Manage your bookings, inquiries, and profile easily.</p>
-        </div>
+       <div class="card">
+    <img src="{{ asset('image/566631067_1257982686081335_3656752457094491588_n.jpg') }}" 
+         alt="bbh" 
+         width="100%" 
+         height="100%">
+</div>
 
-        <div class="card">
-            <h2>Quick Stats</h2>
-            <ul>
-                <li>Total Inquiries: 0</li>
-                <li>Active Bookings: 0</li>
-                <li>Available Rooms: 0</li>
-            </ul>
-        </div>
     </div>
 
 </body>

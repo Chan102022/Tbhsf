@@ -12,6 +12,10 @@
         }
 
         body {
+            background-image: url('{{ asset('image/566631067_1257982686081335_3656752457094491588_n.jpg') }}');
+            background-size: cover;
+            background-position: center;
+            height: 100vh;
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             background-color: #2c3e50;
             color: #a0d8ef;

@@ -5,6 +5,7 @@ use App\Http\Controllers\AdminController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\TenantController;
 use App\Http\Controllers\LandlordController;
+use App\Models\User;
 
 Route::get('/', function () {
     return view('welcome');
@@ -25,7 +26,10 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::middleware(['role:admin'])->group(function () {
 
         Route::get('/admin/dashboard', function () {
-            return view('dashboard.admin');
+          $totalUsers = User::count(); // Total users in the system
+    $tenantCount = User::where('role', 'tenant')->count();
+    $landlordCount = User::where('role', 'landlord')->count();
+    return view('dashboard.admin', compact('totalUsers', 'tenantCount', 'landlordCount'));
         })->name('admin.dashboard');
 
         Route::get('/admin/inquiry', [AdminController::class, 'inquiry'])->name('admin.inquiry');

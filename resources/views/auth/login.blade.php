@@ -9,7 +9,10 @@
             margin: 0;
             padding: 0;
             min-height: 100vh;
-            background-color: #2c3e50;
+          background-image: url('{{ asset('image/566631067_1257982686081335_3656752457094491588_n.jpg') }}');
+            background-size: cover;
+            background-position: center;
+            height: 100vh;
             color: #a0d8ef;
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             display: flex;
@@ -18,11 +21,11 @@
         }
 
         .form-container {
-            background-color: #34495e;
+            background-color:  #063ffc96;
             padding: 3rem;
             border-radius: 12px;
             box-shadow:
-                0 4px 15px rgba(0, 0, 0, 0.4),
+                0 10px 30px rgba(7, 205, 249, 0.4),
                 inset 0 0 10px #1abc9c33;
             text-align: center;
             max-width: 600px;
@@ -32,8 +35,8 @@
         .form-container h1 {
             font-size: 2.2rem;
             margin-bottom: 2rem;
-            color: #1abc9c;
-            text-shadow: 0 0 8px #1abc9c88;
+            color: #fefbfbff;
+            text-shadow: 0 0 8px #16aeef88;
         }
 
         .form-container form {
@@ -74,11 +77,12 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
+           
         }
 
         .form-container a {
             font-size: 0.9rem;
-            color: #1abc9c;
+            color: #fbfefeff;
             text-decoration: none;
         }
 
@@ -87,8 +91,8 @@
         }
 
         .form-container button {
-            background-color: #1abc9c;
-            color: #2c3e50;
+            background-color: #f8fcfdff;
+            color: #0881fbff;
             padding: 0.6rem 1.2rem;
             font-size: 1rem;
             font-weight: bold;
@@ -100,8 +104,8 @@
         }
 
         .form-container button:hover {
-            background-color: #16a085;
-            box-shadow: 0 0 20px #16a085aa;
+            background-color: #62c6f1ff;
+            box-shadow: 0 0 20px #02e0f8aa;
         }
 
         .error {

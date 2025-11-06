@@ -53,6 +53,7 @@ class AdminController extends Controller
         'email' => 'required|email|unique:users,email',
         'role' => 'required|in:admin,tenant,landlord',
         'password' => 'required|string|min:8|confirmed',
+        'contact'  =>'required|string|min:11|max:13',
     ]);
 
     User::create([
@@ -60,6 +61,7 @@ class AdminController extends Controller
         'email' => $validated['email'],
         'role' => $validated['role'],
         'password' => Hash::make($validated['password']),
+        'contact' => $validated['contact'],
     ]);
 
     return redirect()->route('admin.dashboard')

@@ -1,141 +1,93 @@
-<!-- resources/views/auth/register.blade.php -->
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Register - Trinidad Boarding House System</title>
-    <style>
-        body {
-            margin: 0;
-            padding: 0;
-            min-height: 100vh;
-            background-color: #2c3e50;
-            color: #a0d8ef;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-        }
+@extends('admin.layout')
 
-        .form-container {
-            background-color: #34495e;
-            padding: 3rem;
-            border-radius: 12px;
-            box-shadow:
-                0 4px 15px rgba(0, 0, 0, 0.4),
-                inset 0 0 10px #1abc9c33;
-            text-align: center;
-            max-width: 700px;
-            width: 90%;
-        }
+@section('content')
 
-        .form-container h1 {
-            font-size: 2.2rem;
-            margin-bottom: 2rem;
-            color: #1abc9c;
-            text-shadow: 0 0 8px #1abc9c88;
-        }
+<div id="createAccount" class="info-section active">
+    <h2>Create New Account</h2>
 
-        .form-container form {
-            text-align: left;
-        }
+    <form method="POST" action="{{ route('admin.account.store') }}">
+        @csrf
 
-        .form-container label {
-            display: block;
-            margin-bottom: 0.3rem;
-            font-weight: 600;
-            color: #ecf0f1;
-        }
+        <label for="name">Name</label>
+        <input type="text" name="name" value="{{ old('name') }}" required>
+        @error('name') <div class="error">{{ $message }}</div> @enderror
 
-        .form-container input,
-        .form-container select {
-            width: 100%;
-            padding: 0.6rem;
-            border-radius: 6px;
-            border: none;
-            margin-bottom: 1rem;
-            font-size: 1rem;
-            background-color: #ecf0f1;
-            color: #2c3e50;
-        }
+        <label for="email">Email</label>
+        <input type="email" name="email" value="{{ old('email') }}" required>
+        @error('email') <div class="error">{{ $message }}</div> @enderror
 
-        .form-container select {
-            cursor: pointer;
-        }
+        <label for="role">Role</label>
+        <select name="role" required>
+            <option value="">-- Select Role --</option>
+            <option value="admin" {{ old('role')=='admin' ? 'selected':'' }}>Admin</option>
+            <option value="tenant" {{ old('role')=='tenant' ? 'selected':'' }}>Tenant</option>
+            <option value="landlord" {{ old('role')=='landlord' ? 'selected':'' }}>Landlord</option>
+        </select>
+        @error('role') <div class="error">{{ $message }}</div> @enderror
 
-        .form-container .actions {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
+        <label for="contact">Contact Number</label>
+        <input type="text" name="contact" value="{{ old('contact') }}" placeholder="+639123456789" required>
+        @error('contact') <div class="error">{{ $message }}</div> @enderror
 
-        .form-container a {
-            font-size: 0.9rem;
-            color: #1abc9c;
-            text-decoration: none;
-        }
+        <label for="password">Password</label>
+        <input type="password" name="password" required>
+        @error('password') <div class="error">{{ $message }}</div> @enderror
 
-        .form-container a:hover {
-            text-decoration: underline;
-        }
+        <label for="password_confirmation">Confirm Password</label>
+        <input type="password" name="password_confirmation" required>
 
-        .form-container button {
-            background-color: #1abc9c;
-            color: #2c3e50;
-            padding: 0.6rem 1.2rem;
-            font-size: 1rem;
-            font-weight: bold;
-            border: none;
-            border-radius: 6px;
-            cursor: pointer;
-            box-shadow: 0 0 12px #1abc9c88;
-            transition: background-color 0.3s ease, box-shadow 0.3s ease;
-        }
+        <button type="submit">Create Account</button>
+    </form>
+</div>
 
-        .form-container button:hover {
-            background-color: #16a085;
-            box-shadow: 0 0 20px #16a085aa;
-        }
+<style>
+    .info-section {
+        display: block; /* Changed from none to block so it shows automatically */
+        margin-top: 20px;
+        background-color: #34495e;
+        padding: 20px;
+        border-radius: 10px;
+        box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+    }
 
-        .error {
-            color: #e74c3c;
-            font-size: 0.9rem;
-            margin-top: -0.8rem;
-            margin-bottom: 1rem;
-        }
-    </style>
-</head>
-<body>
-    <div class="form-container">
-        <h1>Create Your Account</h1>
+    .info-section h2 {
+        color: #37b6e8ff;
+        text-shadow: 0 0 6px #1abc9c77;
+        margin-bottom: 15px;
+    }
 
-       <form method="POST" action="{{ route('admin.account.store') }}">
-    @csrf
+    .info-section form input,
+    .info-section form select {
+        width: 100%;
+        padding: 10px;
+        margin-bottom: 12px;
+        border-radius: 6px;
+        border: none;
+        font-size: 1rem;
+    }
 
-    <label for="name">Name</label>
-    <input type="text" name="name" required>
+    .info-section form button {
+        background-color: #37b6e8ff;
+        color: #2c3e50;
+        border: none;
+        border-radius: 8px;
+        padding: 10px 15px;
+        font-weight: 600;
+        cursor: pointer;
+        box-shadow: 0 4px 12px #16a085cc;
+        transition: all 0.3s ease;
+    }
 
-    <label for="email">Email</label>
-    <input type="email" name="email" required>
+    .info-section form button:hover {
+        background-color: #47e0eeff;
+        box-shadow: 0 6px 18px #138d75dd;
+    }
 
-    <label for="role">Role</label>
-    <select name="role" required>
-        <option value="">-- Select Role --</option>
-        <option value="admin">Admin</option>
-        <option value="tenant">Tenant</option>
-        <option value="landlord">Landlord</option>
-    </select>
+    .error {
+        color: #e74c3c;
+        font-size: 0.9rem;
+        margin-bottom: 10px;
+    }
+</style>
 
-    <label for="password">Password</label>
-    <input type="password" name="password" required>
-
-    <label for="password_confirmation">Confirm Password</label>
-    <input type="password" name="password_confirmation" required>
-
-    <button type="submit">Create Account</button>
-     <a href="{{ route('admin.dashboard') }}" class="back-link">← Back to Admin Dashboard</a>
-</form>
-
-    </div>
-</body>
-</html>  
+@endsection

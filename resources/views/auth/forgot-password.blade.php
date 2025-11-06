@@ -30,7 +30,7 @@
         .form-container h2 {
             font-size: 2rem;
             margin-bottom: 1.5rem;
-            color: #1abc9c;
+            color: #37b6e8ff;
             text-align: center;
             text-shadow: 0 0 8px #1abc9c88;
         }
@@ -70,14 +70,14 @@
         }
 
         .status {
-            color: #2ecc71;
+            color: #37b6e8ff;
             font-size: 0.95rem;
             margin-bottom: 1rem;
             text-align: center;
         }
 
         .submit-button {
-            background-color: #1abc9c;
+            background-color: #37b6e8ff;
             color: #2c3e50;
             font-weight: 600;
             padding: 0.7rem 1.5rem;
@@ -91,7 +91,7 @@
         }
 
         .submit-button:hover {
-            background-color: #16a085;
+            background-color: #37b6e8ff;
             box-shadow: 0 0 25px #16a085aa;
         }
 

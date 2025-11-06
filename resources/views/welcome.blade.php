@@ -6,23 +6,28 @@
     <title>Welcome</title>
     <style>
         body {
+            background-image: url('{{ asset('image/566631067_1257982686081335_3656752457094491588_n.jpg') }}');
+            background-size: cover;
+            background-position: center;
+            height: 100vh;
+            
+
             margin: 0;
             padding: 0;
             min-height: 100vh;
-            background-color: #2c3e50; /* Formal background */
             color: #a0d8ef;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-family: bankora;
             display: flex;
             justify-content: center;
             align-items: center;
         }
 
         .welcome-container {
-            background-color: #34495e;
+            background-color:  #063ffccc;
             padding: 3rem;
             border-radius: 12px;
             box-shadow:
-                0 4px 15px rgba(0, 0, 0, 0.4),
+                0 4px 15px rgba(253, 251, 251, 1),
                 inset 0 0 10px #1abc9c33;
             text-align: center;
             max-width: 600px;
@@ -32,7 +37,7 @@
         .welcome-container h1 {
             font-size: 2.5rem;
             margin-bottom: 2rem;
-            color: #1abc9c;
+            color:white;
             text-shadow: 0 0 8px #1abc9c88;
             letter-spacing: 0.08em;
         }
@@ -44,16 +49,17 @@
             font-size: 1.1rem;
             font-weight: 600;
             text-decoration: none;
-            color: #2c3e50;
-            background-color: #1abc9c;
+            color: black;
+            background-color: white;
             border-radius: 8px;
             box-shadow: 0 0 15px #1abc9c88;
             transition: background-color 0.3s ease, box-shadow 0.3s ease;
         }
 
         .welcome-container a:hover {
-            background-color: #16a085;
-            box-shadow: 0 0 25px #16a085aa;
+            background-color:black;
+            box-shadow: 0 0 25px white;
+            color:white;
         }
     </style>
 </head>

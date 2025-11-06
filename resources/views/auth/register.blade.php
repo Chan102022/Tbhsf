@@ -1,4 +1,3 @@
-<!-- resources/views/auth/register.blade.php -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -9,8 +8,12 @@
             margin: 0;
             padding: 0;
             min-height: 100vh;
-            background-color: #2c3e50;
+            background-color: #063ffc96;
             color: #a0d8ef;
+            background-image: url('{{ asset('image/566631067_1257982686081335_3656752457094491588_n.jpg') }}');
+            background-size: cover;
+            background-position: center;
+            height: 100vh;
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             display: flex;
             justify-content: center;
@@ -18,11 +21,11 @@
         }
 
         .form-container {
-            background-color: #34495e;
+            background-color: #063ffca6;
             padding: 3rem;
             border-radius: 12px;
             box-shadow:
-                0 4px 15px rgba(0, 0, 0, 0.4),
+                0 4px 15px rgba(3, 220, 248, 1),
                 inset 0 0 10px #1abc9c33;
             text-align: center;
             max-width: 700px;
@@ -32,7 +35,7 @@
         .form-container h1 {
             font-size: 2.2rem;
             margin-bottom: 2rem;
-            color: #1abc9c;
+            color: white;
             text-shadow: 0 0 8px #1abc9c88;
         }
 
@@ -47,8 +50,7 @@
             color: #ecf0f1;
         }
 
-        .form-container input,
-        .form-container select {
+        .form-container input {
             width: 100%;
             padding: 0.6rem;
             border-radius: 6px;
@@ -59,10 +61,6 @@
             color: #2c3e50;
         }
 
-        .form-container select {
-            cursor: pointer;
-        }
-
         .form-container .actions {
             display: flex;
             justify-content: space-between;
@@ -71,7 +69,7 @@
 
         .form-container a {
             font-size: 0.9rem;
-            color: #1abc9c;
+            color: white;
             text-decoration: none;
         }
 
@@ -80,7 +78,7 @@
         }
 
         .form-container button {
-            background-color: #1abc9c;
+            background-color: white;
             color: #2c3e50;
             padding: 0.6rem 1.2rem;
             font-size: 1rem;
@@ -93,7 +91,7 @@
         }
 
         .form-container button:hover {
-            background-color: #16a085;
+            background-color: #0fb8f5b4;
             box-shadow: 0 0 20px #16a085aa;
         }
 
@@ -115,7 +113,7 @@
             <!-- Name -->
             <div>
                 <label for="name">{{ __('Name') }}</label>
-                <input id="name" type="text" name="name" value="{{ old('name') }}" required autofocus autocomplete="name">
+                <input id="name" type="text" placeholder="Enter Your Full Name" name="name" value="{{ old('name') }}" required autofocus autocomplete="name">
                 @error('name')
                     <div class="error">{{ $message }}</div>
                 @enderror
@@ -131,32 +129,21 @@
             </div>
 
             <!-- Contact Number -->
-<div>
-    <label for="contact">{{ __('Contact Number') }}</label>
-    <input id="contact" type="text" name="contact" value="{{ old('contact') }}" required autocomplete="tel" placeholder="e.g., +639123456789">
-    @error('contact')
-        <div class="error">{{ $message }}</div>
-    @enderror
-</div>
-
-
-            <!-- Role -->
             <div>
-                <label for="role">{{ __('Register As') }}</label>
-                <select id="role" name="role" required>
-                    <option value="">-- Select Role --</option>
-                    <option value="tenant" {{ old('role') == 'tenant' ? 'selected' : '' }}>Tenant</option>
-                    <option value="landlord" {{ old('role') == 'landlord' ? 'selected' : '' }}>Landlord/Landlady</option>
-                </select>
-                @error('role')
+                <label for="contact">{{ __('Contact Number') }}</label>
+                <input id="contact" type="text" name="contact" value="{{ old('contact') }}" required autocomplete="tel" placeholder="e.g., +639123456789">
+                @error('contact')
                     <div class="error">{{ $message }}</div>
                 @enderror
             </div>
 
+            <!-- Hidden Default Role -->
+            <input type="hidden" name="role" value="tenant">
+
             <!-- Password -->
             <div>
                 <label for="password">{{ __('Password') }}</label>
-                <input id="password" type="password" name="password" required autocomplete="new-password">
+                <input id="password" type="password" placeholder="Enter atleast 8 Characters" min="8" name="password" required autocomplete="new-password">
                 @error('password')
                     <div class="error">{{ $message }}</div>
                 @enderror
