@@ -18,6 +18,9 @@ class TenantBooking extends Model
     'landlord_contact',
     'property_name', // ✅ add this
      'booking_date',  
+     'image',
+    'latitude',
+    'longitude',
 ];
 
 }

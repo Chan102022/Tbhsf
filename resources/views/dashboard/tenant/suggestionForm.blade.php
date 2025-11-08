@@ -26,8 +26,8 @@
         <label for="contact">Contact</label>
         <input id="contact" name="contact" type="text" value="{{ old('contact') }}" required />
 
-        <label for="suggestions">Message</label>
-        <textarea id="suggestions" name="suggestions" rows="5" required>{{ old('message') }}</textarea>
+        <label for="suggestion">Message</label>
+        <textarea id="suggestion" name="suggestion" rows="5" required>{{ old('message') }}</textarea>
 
         <button class="submit-button" type="submit">Submit Message</button>
     </form>

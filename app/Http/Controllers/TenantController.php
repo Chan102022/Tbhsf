@@ -41,11 +41,31 @@ class TenantController extends Controller
         'landlord_name' => $request->landlord_name,
         'landlord_contact' => $request->landlord_contact,
         'property_name' => $request->property_name,
-        'booking_date' => now(),  // <--- add this line
+        'booking_date' => now(),
+        'latitude' => $request->latitude,
+        'longitude' => $request->longitude,
     ]);
 
-    return redirect()->back()->with('success', 'You have successfully reserve boarding house!');
+    return redirect()->back()->with('success', 'You have successfully reserved this boarding house!');
 }
+public function profile()
+{
+    $bookings = \App\Models\TenantBooking::where('user_id', auth()->id())->latest()->get();
+    return view('dashboard.tenant.profile', compact('bookings'));
+}
+public function destroy($id)
+{
+    $booking = TenantBooking::where('id', $id)
+                ->where('user_id', auth()->id()) // only allow user to delete their own bookings
+                ->firstOrFail();
+
+    $booking->delete();
+
+    return redirect()->back()->with('success', 'Reservation deleted successfully!');
+}
+
+
+
 
 
 

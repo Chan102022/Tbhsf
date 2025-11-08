@@ -101,10 +101,19 @@ Route::middleware(['auth', 'verified'])->group(function () {
         Route::get('/landloard/adding', function () {
             return view('dashboard.landlord.addBoarding');
         })->name('landlord.add');
+       
+
     });
+     Route::get('/tenant/profile', [TenantController::class, 'profile'])->name('tenant.profile');
+
+     Route::delete('/tenant/bookings/{booking}', [TenantController::class, 'destroy'])
+    ->name('tenant.booking.destroy')
+    ->middleware(['auth', 'role:tenant']);
+
 
     // Admin deleting tenant bookings
     Route::delete('/admin/tenant-booking/{id}', [AdminController::class, 'deleteTenantBooking'])->name('admin.tenantbooking.delete');
 });
+
 
 require __DIR__ . '/auth.php';

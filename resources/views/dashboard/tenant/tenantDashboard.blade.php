@@ -120,14 +120,17 @@
                 <div id="map-{{ $house->id }}" class="map-container"></div>
             @endif
 
-            <form action="{{ route('tenant.book') }}" method="POST" class="booking-form" onsubmit="return confirm('Reserve this boarding house?');">
-                @csrf
-                <input type="hidden" name="property_name" value="{{ $house->property_name }}">
-                <input type="hidden" name="landlord_id" value="{{ $house->user_id }}">
-                <input type="hidden" name="landlord_name" value="{{ $house->name }}">
-                <input type="hidden" name="landlord_contact" value="{{ $house->contact }}">
-                <button type="submit" class="btn-book">Reserve Now</button>
-            </form>
+           <form action="{{ route('tenant.book') }}" method="POST" class="booking-form" onsubmit="return confirm('Reserve this boarding house?');">
+    @csrf
+    <input type="hidden" name="property_name" value="{{ $house->property_name }}">
+    <input type="hidden" name="landlord_id" value="{{ $house->user_id }}">
+    <input type="hidden" name="landlord_name" value="{{ $house->name }}">
+    <input type="hidden" name="landlord_contact" value="{{ $house->contact }}">
+    <input type="hidden" name="latitude" value="{{ $house->latitude }}">
+    <input type="hidden" name="longitude" value="{{ $house->longitude }}">
+    <button type="submit" class="btn-book">Reserve Now</button>
+</form>
+
         </div>
     @empty
         <p style="text-align:center;color:black;">No boarding houses available at the moment.</p>

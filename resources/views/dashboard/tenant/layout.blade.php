@@ -122,7 +122,7 @@
         <a href="{{ route('tenant.dashboard') }}" class="{{ Request::routeIs('tenant.dashboard') ? 'active' : '' }}">Home</a>
         <a href="{{ route('tenantdash.book') }}" class="{{ Request::routeIs('tenantdash.book') ? 'active' : '' }}">Browse</a>
         <a href="{{ route('tenant.suggest') }}" class="{{ Request::routeIs('tenant.suggest') ? 'active' : '' }}">Message Admin</a>
-        <a href="#" class="{{ Request::routeIs('tenant.profile') ? 'active' : '' }}">Profile</a>
+        <a href="{{ route('tenant.profile') }}" class="{{ Request::routeIs('tenant.profile') ? 'active' : '' }}">Profile</a>
         <form method="POST" action="/logout" style="display:inline;">
             @csrf
             <button type="submit" class="logout-btn">Logout</button>
