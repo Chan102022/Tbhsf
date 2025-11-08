@@ -72,7 +72,7 @@ public function deleteTenantSuggestion($id)
     $suggestion = TenantSuggestion::findOrFail($id);
     $suggestion->delete();
 
-    return Redirect::back()->with('success', 'Tenant suggestion deleted successfully.');
+    return Redirect::back()->with('success', 'Tenant messages deleted successfully.');
 }
 
 public function deleteLandlordSuggestion($id)
@@ -80,7 +80,7 @@ public function deleteLandlordSuggestion($id)
     $suggestion = LandlordSuggestion::findOrFail($id);
     $suggestion->delete();
 
-    return Redirect::back()->with('success', 'Landlord suggestion deleted successfully.');
+    return Redirect::back()->with('success', 'Landlord messages deleted successfully.');
 }
 public function deleteBoarding($id)
 {

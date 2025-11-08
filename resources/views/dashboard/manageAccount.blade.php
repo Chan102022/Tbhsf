@@ -47,14 +47,14 @@
     .info-section {
         display: block; /* Make it visible by default */
         margin-top: 20px;
-        background-color: #34495e;
+        background-color:  #01236cf2;
         padding: 20px;
         border-radius: 10px;
         box-shadow: 0 4px 12px rgba(0,0,0,0.3);
     }
 
     .info-section h2 {
-        color: #37b6e8ff;
+        color: white;
         text-shadow: 0 0 6px #1abc9c77;
         margin-bottom: 15px;
     }
@@ -62,7 +62,7 @@
     table {
         width: 100%;
         border-collapse: collapse;
-        background-color: #34495e;
+        background-color: white;
         border-radius: 8px;
         overflow: hidden;
         box-shadow: 0 0 12px rgba(0,0,0,0.4);
@@ -74,16 +74,16 @@
     }
 
     th {
-        background-color: #37b6e8ff;
-        color: #2c3e50;
+        background-color:  #01236cf2;
+        color: white;
     }
 
     tr:nth-child(even) {
-        background-color: #3b5870;
+        background-color: yellow;
     }
 
     tr:hover {
-        background-color: #49667f;
+        background-color: yellow;
     }
 
     .delete-btn {

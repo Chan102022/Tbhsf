@@ -7,25 +7,21 @@
     </div>
 @endif
 
-<div class="btn-container">
-    <button class="suggestion-btn" onclick="showSection('tenant')">Show Tenant Messages</button>
-    <button class="suggestion-btn" onclick="showSection('landlord')">Show Landlord Messages</button>
-</div>
 
 <div id="tenant" class="info-section">
-    <h2>Tenant Uploaded Info</h2>
+    <h2>Tenant Messages</h2>
     @forelse ($tenantSuggestions as $tenant)
         <div class="card">
             <ul>
                 <li><strong>Name:</strong> {{ $tenant->name }}</li>
                 <li><strong>Contact:</strong> {{ $tenant->contact }}</li>
-                <li><strong>Suggestion:</strong> {{ $tenant->suggestion }}</li>
+                <li><strong>Message:</strong> {{ $tenant->suggestion }}</li>
                 <li><strong>Uploaded on:</strong> {{ $tenant->created_at->format('Y-m-d') }}</li>
                 <li>
                     <form action="{{ route('admin.suggestion.tenant.delete', $tenant->id) }}" method="POST" onsubmit="return confirm('Are you sure?');">
                         @csrf
                         @method('DELETE')
-                        <button type="submit" class="delete-btn">Delete</button>
+                        <button type="submit" class="delete-btn1">Delete</button>
                     </form>
                 </li>
             </ul>
@@ -36,22 +32,21 @@
 </div>
 
 <div id="landlord" class="info-section">
-    <h2>Landlord Uploaded Info</h2>
+    <h2>Landlord Messages</h2>
     @forelse ($landlordSuggestions as $landlord)
         <div class="card">
             <ul>
                 <li><strong>Name:</strong> {{ $landlord->name }}</li>
                 <li><strong>Contact:</strong> {{ $landlord->contact }}</li>
-                <li><strong>Suggestion:</strong> {{ $landlord->suggestion }}</li>
+                <li><strong>Messages:</strong> {{ $landlord->suggestion }}</li>
                 <li><strong>Uploaded on:</strong> {{ $landlord->created_at->format('Y-m-d') }}</li>
-                <li>
+                </ul>
                     <form action="{{ route('admin.suggestion.landlord.delete', $landlord->id) }}" method="POST" onsubmit="return confirm('Are you sure?');">
                         @csrf
                         @method('DELETE')
-                        <button type="submit" class="delete-btn">Delete</button>
-                    </form>
-                </li>
-            </ul>
+                        <button type="submit" class="delete-btn1">Delete</button>
+                    </form> 
+            
         </div>
     @empty
         <p>No landlord messages available.</p>
@@ -99,6 +94,7 @@
     margin-bottom: 15px;
     border-radius: 10px;
     box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+
 }
 
 .card ul {
@@ -109,9 +105,10 @@
 
 .card li {
     margin: 5px 0;
+
 }
 
-.delete-btn {
+.delete-btn1 {
     background-color: #e74c3c;
     color: #fff;
     padding: 8px 12px;

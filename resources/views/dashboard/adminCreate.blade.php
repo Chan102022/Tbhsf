@@ -9,11 +9,11 @@
         @csrf
 
         <label for="name">Name</label>
-        <input type="text" name="name" value="{{ old('name') }}" required>
+        <input type="text" placeholder="Enter Fullname" name="name" value="{{ old('name') }}" required>
         @error('name') <div class="error">{{ $message }}</div> @enderror
 
         <label for="email">Email</label>
-        <input type="email" name="email" value="{{ old('email') }}" required>
+        <input type="email" placeholder="Enter Email" name="email" value="{{ old('email') }}" required>
         @error('email') <div class="error">{{ $message }}</div> @enderror
 
         <label for="role">Role</label>
@@ -30,7 +30,7 @@
         @error('contact') <div class="error">{{ $message }}</div> @enderror
 
         <label for="password">Password</label>
-        <input type="password" name="password" required>
+        <input type="password" placeholder="Atleast 8 letters" name="password" required>
         @error('password') <div class="error">{{ $message }}</div> @enderror
 
         <label for="password_confirmation">Confirm Password</label>
@@ -44,14 +44,15 @@
     .info-section {
         display: block; /* Changed from none to block so it shows automatically */
         margin-top: 20px;
-        background-color: #34495e;
+        background-color:  #01236cf2;
         padding: 20px;
         border-radius: 10px;
         box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+        
     }
 
     .info-section h2 {
-        color: #37b6e8ff;
+        color:white;
         text-shadow: 0 0 6px #1abc9c77;
         margin-bottom: 15px;
     }
@@ -64,10 +65,11 @@
         border-radius: 6px;
         border: none;
         font-size: 1rem;
+        color:black;
     }
 
     .info-section form button {
-        background-color: #37b6e8ff;
+        background-color: white;
         color: #2c3e50;
         border: none;
         border-radius: 8px;
@@ -79,14 +81,23 @@
     }
 
     .info-section form button:hover {
-        background-color: #47e0eeff;
+        background-color: #01236cf2;
         box-shadow: 0 6px 18px #138d75dd;
+        color:white;
     }
 
     .error {
         color: #e74c3c;
         font-size: 0.9rem;
         margin-bottom: 10px;
+    }
+    label{
+        color: white;
+       
+    }
+    input{
+        color:black;
+        background-color:  white;
     }
 </style>
 

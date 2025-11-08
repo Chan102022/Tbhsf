@@ -7,6 +7,8 @@ use App\Http\Controllers\LandlordController;
 use App\Http\Controllers\Auth\AuthenticatedSessionController;
 use App\Http\Controllers\Auth\RegisteredUserController;
 use App\Models\User;
+use App\Models\TenantBooking;
+use App\Models\LandlordAdding;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -49,7 +51,9 @@ Route::middleware(['auth', 'verified'])->group(function () {
             $tenantCount = User::where('role', 'tenant')->count();
             $landlordCount = User::where('role', 'landlord')->count();
             $adminCount = User::where('role', 'admin')->count();
-            return view('dashboard.admin', compact('totalUsers', 'tenantCount', 'landlordCount','adminCount'));
+            $totalReservations = TenantBooking::count();
+            $totalBoardingHouses = LandlordAdding::count();
+            return view('dashboard.admin', compact('totalUsers', 'tenantCount', 'landlordCount','adminCount','totalReservations','totalBoardingHouses'));
         })->name('admin.dashboard');
 
         Route::get('/admin/inquiry', [AdminController::class, 'inquiry'])->name('admin.inquiry');

@@ -6,57 +6,197 @@
     <title>Trinidad Boarding House - Admin</title>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <style>
-        /* Keep your exact CSS here */
-        * { margin:0; padding:0; box-sizing:border-box; }
-        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;   background-image: url('{{ asset('image/LGU-Trinidad-Banner-3.png') }}');
-            background-size:100%,100%;
-            background-position:center 250px;
-              background-repeat: no-repeat;
-            color:#a0d8ef; }
-        header { background-color:#1a252f; padding:20px 40px; box-shadow:0 2px 8px rgba(0,0,0,0.3); }
-        header h1 { font-size:26px; color:#37b6e8ff; text-shadow:0 0 8px #1abc9c88; }
-        nav { background-color:#34495e; padding:15px 40px; display:flex; gap:30px; border-bottom:2px solid #1abc9c33; }
-        nav a { color:#a0d8ef; text-decoration:none; font-weight:600; font-size:1rem; letter-spacing:0.5px; transition:color 0.3s ease, text-shadow 0.3s ease; }
-        nav a:hover { color:#37b6e8ff; text-shadow:0 0 6px #1abc9caa; }
-        nav a.active { color:#1abc9c; text-shadow:0 0 6px #1abc9c; }
-        .logout-btn { background:none; border:none; color:#a0d8ef; font-weight:600; font-size:1rem; cursor:pointer; letter-spacing:0.5px; padding:0; margin-left:auto; transition:color 0.3s ease, text-shadow 0.3s ease; }
-        .logout-btn:hover { color:#37b6e8ff; text-shadow:0 0 6px #a0d8ef; }
-        .content { padding:40px;}
-        .card { background-color:#34495e; border-radius:10px; padding:25px; margin-top:350px; box-shadow:0 4px 12px rgba(0,0,0,0.3); transition:transform 0.3s ease, box-shadow 0.3s ease; }
-        .card:hover { transform:translateY(-4px); box-shadow:0 8px 20px rgba(0,0,0,0.4); }
-        .card h2 { font-size:1.5rem; color:#37b6e8ff; margin-bottom:10px; text-shadow:0 0 6px #1abc9c77; }
-        .card p, .card ul, .card li { font-size:1rem; color:#a0d8ef; }
-        .card ul { margin-top:10px; list-style:disc; padding-left:20px; }
-        .card li { margin-bottom:6px; }
-        .btn-container { display:flex; gap:30px; justify-content:center; margin-bottom:40px; max-width:700px; margin-left:auto; margin-right:auto; }
-        button.suggestion-btn, a.back-btn { background-color:#37b6e8ff; border:none; border-radius:10px; padding:12px 30px; font-size:1rem; font-weight:600; color:#2c3e50; cursor:pointer; box-shadow:0 4px 12px #16a085cc; transition: background-color 0.3s ease, box-shadow 0.3s ease; flex:1; text-align:center; text-decoration:none; display:inline-block; }
-        button.suggestion-btn:hover, a.back-btn:hover { background-color:#37b6e8ff; box-shadow:0 6px 18px #138d75dd; }
-        .info-section { max-width:700px; margin-left:auto; margin-right:auto; background-color:#34495e; border-radius:10px; padding:25px; box-shadow:0 4px 12px rgba(0,0,0,0.3); display:none; }
-        .info-section.active { display:block; }
+        /* Global Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            min-height: 100vh;
+            background-color: white;
+            color: #01236cf2;
+            display: flex;
+        }
+
+        /* Side Navigation */
+        nav {
+            width: 220px;
+            background-color: #01236cf2;
+            display: flex;
+            flex-direction: column;
+            padding: 20px;
+            min-height: 100vh;
+            box-shadow: 2px 0 8px rgba(0,0,0,0.2);
+            position: fixed;
+            top: 0;
+            left: 0;
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1rem;
+            letter-spacing: 0.5px;
+            padding: 12px 15px;
+            border-radius: 8px;
+            margin-bottom: 10px;
+            transition: color 0.3s ease, text-shadow 0.3s ease, background 0.3s ease;
+        }
+
+        nav a:hover {
+            color: yellow;
+            text-shadow: 0 0 6px #1abc9caa;
+            background-color: rgba(255,255,0,0.1);
+        }
+
+        nav a.active {
+            color: yellow;
+            text-shadow: 0 0 6px yellow;
+            background-color: rgba(255,255,0,0.2);
+        }
+
+        /* Make logout button look like nav links */
+.nav-form {
+    margin: 0; /* remove default margin */
+}
+
+.logout-btn {
+    display: block;
+    width: 100%;
+    background: none;
+    border: none;
+    color: white;
+    font-weight: 600;
+    font-size: 1rem;
+    text-align: left;
+    padding: 12px 15px;
+    border-radius: 8px;
+    cursor: pointer;
+    letter-spacing: 0.5px;
+    transition: color 0.3s ease, text-shadow 0.3s ease, background 0.3s ease;
+}
+
+.logout-btn:hover {
+    color: yellow;
+    text-shadow: 0 0 6px #1abc9caa;
+    background-color: rgba(255,255,0,0.1);
+}
+
+
+        /* Main Content */
+        .content {
+            margin-left: 240px; /* same as nav width + some padding */
+            padding: 60px 40px 40px 40px;
+            flex: 1;
+        }
+
+        /* Header */
+        header {
+            background-color: white;
+            padding: 20px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+            margin-bottom: 20px;
+        }
+
+        header h1 {
+            font-size: 26px;
+            color:#01236cf2 ;
+            text-shadow: 0 0 8px yellow;
+        }
+
+        header h2 {
+            font-size: 18px;
+            color: #01236cf2;
+            margin-top: 5px;
+            text-shadow: 0 0 8px white;
+        }
+
+        /* Cards */
+        .card {
+       
+            border-radius: 10px;
+            padding: 25px;
+            margin-top: 20px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            color: #01236cf2;
+        }
+
+        .card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.4);
+        }
+
+        .card h2 {
+            font-size: 1.5rem;
+            color: #37b6e8ff;
+            margin-bottom: 10px;
+        }
+
+        .card p,
+        .card ul,
+        .card li {
+            font-size: 1rem;
+            color: #01236cf2;
+        }
+
+        .card ul {
+            margin-top: 10px;
+            list-style: disc;
+            padding-left: 20px;
+        }
+
+        .card li {
+            margin-bottom: 6px;
+        }
+        .delete-btn1 {
+    background-color: #e74c3c;
+    color: #fff;
+    padding: 8px 12px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: bold;
+    margin-top: 10px;
+    transition: background-color 0.3s ease;
+}
+
+.delete-btn1:hover {
+    background-color: #c0392b;
+}
     </style>
 </head>
 <body>
-    <header>
-        <h1>Trinidad Boarding House System</h1>
-        <h2>Admin Dashboard</h2>
-    </header>
-
+    <!-- Side Navigation -->
     <nav>
         <a href="{{ route('admin.dashboard') }}" class="{{ Request::routeIs('admin.dashboard') ? 'active' : '' }}">Home</a>
         <a href="{{ route('admin.inquiry') }}" class="{{ Request::routeIs('admin.inquiry') ? 'active' : '' }}">Messages</a>
         <a href="{{ route('admin.management') }}" class="{{ Request::routeIs('admin.management') ? 'active' : '' }}">Reservation || Adding</a>
         <a href="{{ route('admin.account') }}" class="{{ Request::routeIs('admin.account') ? 'active' : '' }}">Create Account</a>
         <a href="{{ route('admin.accountmanage') }}" class="{{ Request::routeIs('admin.accountmanage') ? 'active' : '' }}">Manage Account</a>
-        <form method="POST" action="/logout" style="display: inline;">
+
+        <!-- Logout -->
+        <form method="POST" action="/logout">
             @csrf
             <button type="submit" class="logout-btn">Logout</button>
         </form>
     </nav>
 
+    <!-- Main Content -->
     <div class="content">
+        <header>
+            <h1>Trinidad Boarding House System</h1>
+            <h2>Admin Dashboard</h2>
+        </header>
+
         @yield('content')
     </div>
 
+    <!-- Scripts -->
     @yield('scripts')
 </body>
 </html>

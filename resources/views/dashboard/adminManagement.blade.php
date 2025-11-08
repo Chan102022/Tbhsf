@@ -7,14 +7,9 @@
     </div>
 @endif
 
-<div class="btn-container">
-    <button class="suggestion-btn" onclick="showSection('tenantbook')">Show Tenant Booking</button>
-    <button class="suggestion-btn" onclick="showSection('landlordadd')">Show Landlord Added Boarding House</button>
-  
-</div>
 
 <div id="tenantbook" class="info-section">
-    <h2>Tenant Booking Info</h2>
+    <h2>Tenant Reservation Info</h2>
     @forelse ($tenantBooking as $tenantbook)
         <ul>
             <li><strong>Name:</strong> {{ $tenantbook->name }}</li>

@@ -1,5 +1,7 @@
 <?php
 use App\Models\User;
+use App\Models\TenantBooking;
+use App\Models\LandlordAdding;
 
 class DashboardController extends Controller
 {
@@ -16,6 +18,11 @@ class DashboardController extends Controller
         // Optional: total users
         $totalUsers = User::count();
 
-        return view('dashboard', compact('tenantCount', 'landlordCount','adminCount','totalUsers'));
+        $totalReservations = TenantBooking::count();
+
+        $totalBoardingHouses = LandlordAdding::count();
+
+        return view('dashboard', compact('tenantCount', 'landlordCount','adminCount','totalUsers','totalReservations','totalBoardingHouses'));
     }
+
 }
