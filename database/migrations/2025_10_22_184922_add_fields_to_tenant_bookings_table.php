@@ -12,11 +12,21 @@ return new class extends Migration
     public function up(): void
 {
     Schema::table('tenant_bookings', function (Blueprint $table) {
-        $table->string('name')->nullable();
-        $table->string('contact')->nullable();
-        $table->unsignedBigInteger('landlord_id')->nullable();
-        $table->string('landlord_name')->nullable();
-        $table->string('landlord_contact')->nullable();
+        if (!Schema::hasColumn('tenant_bookings', 'email')) {
+            $table->string('email')->nullable();
+        }
+        if (!Schema::hasColumn('tenant_bookings', 'contact')) {
+            $table->string('contact')->nullable();
+        }
+        if (!Schema::hasColumn('tenant_bookings', 'address')) {
+            $table->string('address')->nullable();
+        }
+        if (!Schema::hasColumn('tenant_bookings', 'room')) {
+            $table->string('room')->nullable();
+        }
+        if (!Schema::hasColumn('tenant_bookings', 'status')) {
+            $table->string('status')->nullable();
+        }
     });
 }
 

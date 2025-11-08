@@ -1,61 +1,68 @@
-@extends('layouts.app')
+@extends('dashboard.tenant.layout')
 
 @section('content')
 <style>
-    body {
-        background-color: #2c3e50;
-        color: #a0d8ef;
-        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-        padding: 40px;
-    }
-
-    h2 {
-        color: #37b6e8ff;
+    .h2 {
+        color: #01236cf2;
         text-align: center;
         margin-bottom: 30px;
-        text-shadow: 0 0 8px #1abc9c88;
+        text-shadow: 0 0 8px #01236cf2;
+    }
+
+    /* Grid container for cards */
+    .card-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 20px;
+        max-width: 1200px;
+        margin: 0 auto 40px auto;
     }
 
     .card {
-        background-color: #34495e;
-        border-radius: 10px;
-        padding: 25px;
-        box-shadow:
-            0 4px 15px rgba(0, 0, 0, 0.4),
-            inset 0 0 10px #1abc9c33;
-        margin-bottom: 40px;
-        max-width: 700px;
-        margin-left: auto;
-        margin-right: auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    background-color: #01236cf2;
+    border-radius: 10px;
+    padding: 15px;
+    box-shadow:
+        0 4px 15px rgba(0, 0, 0, 0.4),
+        inset 0 0 10px #1abc9c33;
+    transition: transform 0.3s ease;
+}
+
+    .card:hover {
+        transform: translateY(-4px);
     }
 
     .card p {
-        margin: 8px 0;
-        color: #ecf0f1;
-        font-size: 1rem;
+        margin: 6px 0;
+        color: yellow;
+        font-size: 0.9rem;
     }
 
-    .btn-book {
-        background-color: #37b6e8ff;
-        color: #2c3e50;
-        padding: 10px 20px;
-        border: none;
-        border-radius: 6px;
-        font-weight: bold;
-        cursor: pointer;
-        margin-top: 15px;
-        transition: all 0.3s ease;
-        box-shadow: 0 0 12px #24c9ee88;
-    }
+   .btn-book {
+    width: 100%; /* Make it full width at the bottom */
+    background-color: #37b6e8ff;
+    color: #2c3e50;
+    padding: 10px;
+    border: none;
+    border-radius: 6px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 0 8px #24c9ee88;
+    font-size: 0.95rem;
+}
 
     .btn-book:hover {
         background-color: #47e0eeff;
-        box-shadow: 0 0 20px #16a085aa;
+        box-shadow: 0 0 15px #16a085aa;
     }
 
     .alert-success {
         background-color: #27ae60;
-        padding: 12px;
+        padding: 10px;
         border-radius: 8px;
         text-align: center;
         color: #ecf0f1;
@@ -63,31 +70,28 @@
         max-width: 700px;
         margin: 0 auto 25px auto;
         box-shadow: 0 0 12px rgba(0, 0, 0, 0.3);
+        font-size: 0.95rem;
     }
 
-    .btn-back {
-        display: block;
-        width: fit-content;
-        margin: 40px auto 0 auto;
-        padding: 10px 20px;
-        background-color: #37b6e8ff;
-        color: #2c3e50;
-        text-decoration: none;
-        border-radius: 6px;
-        font-weight: bold;
-        transition: background-color 0.3s ease, box-shadow 0.3s ease;
-        box-shadow: 0 0 12px #24c9ee88;
+    .dashboard-image {
+        width: 200px;
+        max-height: 200px;
+        object-fit: cover;
+        border-radius: 8px;
+        margin-bottom: 10px;
     }
 
-    .btn-back:hover {
-        background-color: #47e0eeff;
-        box-shadow: 0 0 20px #16a085aa;
+    .map-container {
+        width: 100%;
+        height: 150px;
+        border-radius: 8px;
+        margin-bottom: 10px;
     }
 
-    .booking-form {
-        margin-top: 15px;
-        margin-bottom: 30px;
-    }
+   .booking-form {
+    margin-top: auto; /* Push form to the bottom */
+}
+
 </style>
 
 @if(session('success'))
@@ -96,53 +100,60 @@
     </div>
 @endif
 
-<h2>Available Boarding Houses</h2>
+<h2 class="h2">Available Boarding Houses</h2>
 
-@forelse ($boardingHouses as $house)
-    <div class="card">
-    <p><strong>Landlord Name:</strong> {{ $house->name }}</p>
-    <p><strong>Contact:</strong> {{ $house->contact }}</p>
-    <p><strong>Boarding House:</strong> {{ $house->property_name }}</p>
-    <p><strong>Description:</strong> {{ $house->property_description }}</p>
-    <p><strong>Price:</strong> ₱{{ $house->property_price }}</p>
-    <p><strong>Added On:</strong> {{ $house->adding_date }}</p>
+<div class="card-grid">
+    @forelse ($boardingHouses as $house)
+        <div class="card">
+            <p><strong>Landlord Name:</strong> {{ $house->name }}</p>
+            <p><strong>Contact:</strong> {{ $house->contact }}</p>
+            <p><strong>Boarding House:</strong> {{ $house->property_name }}</p>
+            <p><strong>Description:</strong> {{ $house->property_description }}</p>
+            <p><strong>Price:</strong> ₱{{ $house->property_price }}</p>
+            <p><strong>Added On:</strong> {{ $house->adding_date }}</p>
 
-    @if($house->image)
-        <p><strong>Image:</strong></p>
-        <img src="{{ asset('storage/' . $house->image) }}" alt="Boarding House Image" style="width:100%; max-height:300px; border-radius:10px; margin-bottom:15px;">
-    @endif
+            @if($house->image)
+                <img src="{{ asset('storage/' . $house->image) }}" alt="Boarding House Image" class="dashboard-image">
+            @endif
 
-    @if($house->latitude && $house->longitude)
-       <div id="map-{{ $house->id }}" style="width:100%; height:250px; border-radius:10px; margin-bottom:15px;"></div>
-<script>
-  document.addEventListener('DOMContentLoaded', function() {
-      var map{{ $house->id }} = L.map('map-{{ $house->id }}')
-          .setView([{{ $house->latitude }}, {{ $house->longitude }}], 15);
+            @if($house->latitude && $house->longitude)
+                <div id="map-{{ $house->id }}" class="map-container"></div>
+            @endif
 
-      L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-          maxZoom: 19,
-          attribution: '&copy; OpenStreetMap contributors'
-      }).addTo(map{{ $house->id }});
-
-      L.marker([{{ $house->latitude }}, {{ $house->longitude }}]).addTo(map{{ $house->id }});
-  });
-</script>
-
-    @endif
-
-    <form action="{{ route('tenant.book') }}" method="POST" class="booking-form" onsubmit="return confirm('Reserve this boarding house?');">
-        @csrf
-        <input type="hidden" name="property_name" value="{{ $house->property_name }}">
-        <input type="hidden" name="landlord_id" value="{{ $house->user_id }}">
-        <input type="hidden" name="landlord_name" value="{{ $house->name }}">
-        <input type="hidden" name="landlord_contact" value="{{ $house->contact }}">
-        <button type="submit" class="btn-book">Reserve Now</button>
-    </form>
+            <form action="{{ route('tenant.book') }}" method="POST" class="booking-form" onsubmit="return confirm('Reserve this boarding house?');">
+                @csrf
+                <input type="hidden" name="property_name" value="{{ $house->property_name }}">
+                <input type="hidden" name="landlord_id" value="{{ $house->user_id }}">
+                <input type="hidden" name="landlord_name" value="{{ $house->name }}">
+                <input type="hidden" name="landlord_contact" value="{{ $house->contact }}">
+                <button type="submit" class="btn-book">Reserve Now</button>
+            </form>
+        </div>
+    @empty
+        <p style="text-align:center;color:black;">No boarding houses available at the moment.</p>
+    @endforelse
 </div>
+@endsection
 
-@empty
-    <p style="text-align:center;">No boarding houses available at the moment.</p>
-@endforelse
-
-<a href="{{ route('tenant.dashboard') }}" class="btn-back">← Back to Dashboard</a>
+@section('scripts')
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    @foreach($boardingHouses as $house)
+        @if($house->latitude !== null && $house->longitude !== null)
+            (function() {
+                var lat = {{ $house->latitude }};
+                var lng = {{ $house->longitude }};
+                var map = L.map('map-{{ $house->id }}').setView([lat, lng], 15);
+                L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                    maxZoom: 19,
+                    attribution: '&copy; OpenStreetMap contributors'
+                }).addTo(map);
+                L.marker([lat, lng])
+                 .bindPopup("<strong>{{ $house->property_name }}</strong>")
+                 .addTo(map);
+            })();
+        @endif
+    @endforeach
+});
+</script>
 @endsection

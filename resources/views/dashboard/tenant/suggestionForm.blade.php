@@ -1,33 +1,53 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Tenant Message - Trinidad Boarding House</title>
+{{-- resources/views/tenant/message.blade.php --}}
+@extends('dashboard.tenant.layout') {{-- Extends your tenant layout --}}
+
+@section('content')
+    <h1 class="h1">Send Admin a Message</h1>
+
+    @if(session('success'))
+        <p class="success-message">{{ session('success') }}</p>
+    @endif
+
+    @if ($errors->any())
+        <div class="error-message">
+            <ul>
+                @foreach ($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                @endforeach
+            </ul>
+        </div>
+    @endif
+
+    <form class="form" method="POST" action="{{ route('tenant.suggestion.submit') }}">
+        @csrf
+        <label for="name">Name</label>
+        <input id="name" name="name" type="text" value="{{ old('name') }}" required />
+
+        <label for="contact">Contact</label>
+        <input id="contact" name="contact" type="text" value="{{ old('contact') }}" required />
+
+        <label for="suggestions">Message</label>
+        <textarea id="suggestions" name="suggestions" rows="5" required>{{ old('message') }}</textarea>
+
+        <button class="submit-button" type="submit">Submit Message</button>
+    </form>
+
+
     <style>
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-color: #2c3e50;
-            color: #a0d8ef;
-            padding: 40px;
-            max-width: 600px;
-            margin: auto;
-        }
-
-        h1 {
+        .h1 {
             text-align: center;
-            color: #37b6e8ff;
+            color:#01236cf2;
             margin-bottom: 30px;
-            text-shadow: 0 0 8px #1abc9c88;
+            text-shadow: 0 0 8px white;
         }
 
-        form {
-            background-color: #34495e;
+        .form {
+            background-color: #01236cf2;
             padding: 25px;
             border-radius: 12px;
-            box-shadow:
-                0 4px 15px rgba(0, 0, 0, 0.4),
-                inset 0 0 10px #1abc9c33;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4), inset 0 0 10px #1abc9c33;
+            max-width: 600px;
+            margin: 0 auto 20px auto;
         }
 
         label {
@@ -48,8 +68,8 @@
             color: #2c3e50;
         }
 
-        button {
-            background-color: #37b6e8ff;
+        .submit-button{
+            background-color: yellow;
             border: none;
             color: #2c3e50;
             font-weight: 700;
@@ -62,13 +82,14 @@
             box-shadow: 0 0 12px #24c9ee88;
         }
 
-        button:hover {
-            background-color: #47e0eeff;
-            box-shadow: 0 0 20px #16a085aa;
+        .submit-button:hover {
+            background-color: #01236cf2;
+            box-shadow: 0 0 20px white;
+            color:yellow;
         }
 
         .success-message {
-            background-color: #2ecc71;
+            background-color:  #01236cf2;
             color: white;
             padding: 10px;
             border-radius: 6px;
@@ -98,42 +119,4 @@
             text-decoration: underline;
         }
     </style>
-</head>
-<body>
-
-    <h1>Submit Tenant Message</h1>
-
-    @if(session('success'))
-        <p class="success-message">{{ session('success') }}</p>
-    @endif
-
-    @if ($errors->any())
-        <div class="error-message">
-            <ul>
-                @foreach ($errors->all() as $error)
-                    <li>{{ $error }}</li>
-                @endforeach
-            </ul>
-        </div>
-    @endif
-
-    <form method="POST" action="{{ route('tenant.suggestion.submit') }}">
-        @csrf
-        <label for="name">Name</label>
-        <input id="name" name="name" type="text" value="{{ old('name') }}" required />
-
-        <label for="contact">Contact</label>
-        <input id="contact" name="contact" type="text" value="{{ old('contact') }}" required />
-
-        <label for="message">Message</label>
-        <textarea id="message" name="message" rows="5" required>{{ old('message') }}</textarea>
-
-        <button type="submit">Submit Message</button>
-    </form>
-
-    <a href="{{ route('tenant.dashboard') }}" class="back-link">
-        ← Back to Tenant Dashboard
-    </a>
-
-</body>
-</html>
+@endsection

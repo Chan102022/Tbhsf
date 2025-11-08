@@ -11,9 +11,11 @@ class DashboardController extends Controller
         // Count landlords
         $landlordCount = User::landlords()->count();
 
+        $adminCount = User::admins()->count();
+
         // Optional: total users
         $totalUsers = User::count();
 
-        return view('dashboard', compact('tenantCount', 'landlordCount', 'totalUsers'));
+        return view('dashboard', compact('tenantCount', 'landlordCount','adminCount','totalUsers'));
     }
 }

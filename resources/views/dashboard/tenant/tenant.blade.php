@@ -1,140 +1,72 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Trinidad Boarding House Dashboard</title>
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+@extends('dashboard.tenant.layout')
 
-        body {
-            
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-color: #2c3e50;
-            color: #a0d8ef;
-        }
+@section('content')
+<style>
+    .h2 {
+        color: #01236cf2;
+        text-align: center;
+        margin-bottom: 30px;
+        text-shadow: 0 0 8px #01236cf2;
+    }
 
-        header {
-            background-color: #1a252f;
-            padding: 20px 40px;
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
-        }
+    .card-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 20px;
+        max-width: 1200px;
+        margin: 0 auto 40px auto;
+    }
 
-        header h1 {
-            font-size: 26px;
-            color: #f6fbfaff;
-            text-shadow: 0 0 8px #06c7f888;
-        }
+    .card {
+        background-color: #01236cf2;
+        border-radius: 10px;
+        padding: 15px;
+        box-shadow:
+            0 4px 15px rgba(0, 0, 0, 0.4),
+            inset 0 0 10px #1abc9c33;
+        transition: transform 0.3s ease;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+    }
 
-        nav {
-            background-color: #34495e;
-            padding: 15px 40px;
-            display: flex;
-            gap: 30px;
-            border-bottom: 2px solid #1abc9c33;
-        }
+    .card:hover {
+        transform: translateY(-4px);
+    }
 
-        nav a {
-            color: #37b6e8ff;
-            text-decoration: none;
-            font-weight: 600;
-            font-size: 1rem;
-            letter-spacing: 0.5px;
-            transition: color 0.3s ease, text-shadow 0.3s ease;
-        }
+    .card p {
+        margin: 6px 0;
+        color: yellow;
+        font-size: 0.9rem;
+    }
 
-        nav a:hover {
-            color: #37b6e8ff;
-            text-shadow: 0 0 6px #1abc9caa;
-        }
+    .dashboard-image {
+        width: 200px;
+        height: 150px;
+        object-fit: cover;
+        border-radius: 8px;
+        margin-bottom: 10px;
+    }
+</style>
 
-        .content {
-            padding: 40px;
-        }
+<h2 class="h2">Available Boarding Houses</h2>
 
-        .card {
-            background-color: #34495e;
-            border-radius: 10px;
-            padding: 25px;
-            margin-bottom: 25px;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-        }
-
-        .card:hover {
-            transform: translateY(-4px);
-            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
-        }
-
-        .card h2 {
-            font-size: 1.5rem;
-            color: #37b6e8ff;
-            margin-bottom: 10px;
-            text-shadow: 0 0 6px #1abc9c77;
-        }
-
-        .card p, .card ul, .card li {
-            font-size: 1rem;
-            color: #a0d8ef;
-        }
-
-        .card ul {
-            margin-top: 10px;
-            list-style: disc;
-            padding-left: 20px;
-        }
-
-        .card li {
-            margin-bottom: 6px;
-        }
-    </style>
-</head>
-<body>
-
-    <header>
-        <h1>Trinidad Boarding House System</h1>
-        <h2>Welcome,Tenant!</h2>
-    </header>
-
-    <nav>
-        <a href="#">Home</a>
-        <a href="{{route('tenantdash.book')}}">Browse</a>
-        <a href="{{ route('tenant.suggest') }}">Message Admin</a>
-        <a href="#">Tenant Profile</a>
-        <form method="POST" action="/logout" style="display: inline;">
-        <!-- CSRF token for security -->
-        <input type="hidden" name="_token" value="{{ csrf_token() }}">
-        <button type="submit" style="
-            background: none;
-            border: none;
-            color: #a0d8ef;
-            font-weight: 600;
-            font-size: 1rem;
-            cursor: pointer;
-            letter-spacing: 0.5px;
-            padding: 0;
-            margin-left: auto;
-            transition: color 0.3s ease, text-shadow 0.3s ease;
-        "
-        onmouseover="this.style.color='#37b6e8ff'; this.style.textShadow='0 0 6px #37b6e8ff';"
-        onmouseout="this.style.color='#a0d8ef'; this.style.textShadow='none';"
-        >
-            Logout
-        </button>
-    </nav>
-
-       <div class="card">
-    <img src="{{ asset('image/566631067_1257982686081335_3656752457094491588_n.jpg') }}" 
-         alt="bbh" 
-         width="100%" 
-         height="100%">
+<div class="card-grid">
+    @forelse ($boardingHouses as $house)
+        <div class="card">
+            @if($house->image)
+                <img src="{{ asset('storage/' . $house->image) }}" alt="{{ $house->property_name }}" class="dashboard-image">
+            @endif
+            <p><strong>Boarding House:</strong> {{ $house->property_name }}</p>
+            <p><strong>Description:</strong> {{ $house->property_description }}</p>
+            <p><strong>Price:</strong> ₱{{ $house->property_price }}</p>
+            <p><strong>Landlord:</strong> {{ $house->name }}</p>
+            <p><strong>Contact:</strong> {{ $house->contact }}</p>
+            <p><strong>Added On:</strong> {{ $house->adding_date }}</p>
+        </div>
+    @empty
+        <p style="text-align:center;color:black;">No boarding houses available at the moment.</p>
+    @endforelse
 </div>
-
-    </div>
-
-</body>
-</html>
+@endsection

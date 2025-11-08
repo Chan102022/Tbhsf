@@ -29,7 +29,7 @@ class TenantController extends Controller
         TenantSuggestion::create($validated);
 
         return redirect()->route('tenant.suggestion.form')
-                         ->with('success', 'Suggestion submitted successfully!');
+                         ->with('success', 'Messages submitted successfully!');
     }
  public function book(Request $request)
 {
@@ -44,7 +44,7 @@ class TenantController extends Controller
         'booking_date' => now(),  // <--- add this line
     ]);
 
-    return redirect()->back()->with('success', 'You have successfully booked a boarding house!');
+    return redirect()->back()->with('success', 'You have successfully reserve boarding house!');
 }
 
 
