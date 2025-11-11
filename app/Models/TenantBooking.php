@@ -21,6 +21,7 @@ class TenantBooking extends Model
      'image',
     'latitude',
     'longitude',
+    'adding_id',
 ];
 
 }

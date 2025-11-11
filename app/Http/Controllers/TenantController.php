@@ -44,6 +44,7 @@ class TenantController extends Controller
         'booking_date' => now(),
         'latitude' => $request->latitude,
         'longitude' => $request->longitude,
+        'adding_id' => $request->adding_id,
     ]);
 
     return redirect()->back()->with('success', 'You have successfully reserved this boarding house!');

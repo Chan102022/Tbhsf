@@ -62,8 +62,12 @@ class LandlordController extends Controller
     // Show all properties added by landlord
     public function landlordprofile()
     {
-        $bookingsland = LandlordAdding::where('user_id', auth()->id())->latest()->get();
+        $bookingsland = LandlordAdding::where('user_id', auth()->id())
+        ->withCount('bookings') // 👈 counts tenant bookings automatically
+        ->latest()
+        ->get();
         return view('dashboard.landlord.profile', compact('bookingsland'));
+        
     }
 
     // Delete a property added by landlord
@@ -77,4 +81,6 @@ class LandlordController extends Controller
 
         return redirect()->back()->with('success', 'Boarding house deleted successfully!');
     }
+    
+    
 }

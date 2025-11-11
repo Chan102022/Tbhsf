@@ -29,4 +29,8 @@ class LandlordAdding extends Model
     {
         return $this->belongsTo(User::class);
     }
+     public function bookings()
+    {
+        return $this->hasMany(TenantBooking::class, 'adding_id');
+    }
 }

@@ -123,6 +123,7 @@
            <form action="{{ route('tenant.book') }}" method="POST" class="booking-form" onsubmit="return confirm('Reserve this boarding house?');">
     @csrf
     <input type="hidden" name="property_name" value="{{ $house->property_name }}">
+     <input type="hidden" name="adding_id" value="{{ $house->id }}">
     <input type="hidden" name="landlord_id" value="{{ $house->user_id }}">
     <input type="hidden" name="landlord_name" value="{{ $house->name }}">
     <input type="hidden" name="landlord_contact" value="{{ $house->contact }}">
