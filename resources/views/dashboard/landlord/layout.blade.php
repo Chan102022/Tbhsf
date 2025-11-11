@@ -132,6 +132,8 @@
         <a href="{{ route('landlord.suggest') }}" class="{{ Request::routeIs('landlord.suggest') ? 'active' : '' }}">Message Admin</a>
         <a href="{{ route('landlord.add') }}" class="{{ Request::routeIs('landlord.add') ? 'active' : '' }}">Add Property</a>
         <a href="{{ route('landlord.profiles') }}" class="{{ Request::routeIs('landlord.profiles') ? 'active' : '' }}">Profile</a>
+         <a href="{{ route('landlord.reservations') }}" class="{{ Request::routeIs('landlord.reservations') ? 'active' : '' }}">Reservations</a>
+
 
         <form method="POST" action="/logout" style="display:inline;">
             @csrf

@@ -23,5 +23,16 @@ class TenantBooking extends Model
     'longitude',
     'adding_id',
 ];
+  public function tenant()
+    {
+        return $this->belongsTo(User::class, 'user_id'); 
+        // Assuming 'user_id' in tenant_bookings points to users table
+    }
+
+    // Relationship to property (optional)
+    public function property()
+    {
+        return $this->belongsTo(LandlordAdding::class, 'adding_id');
+    }
 
 }

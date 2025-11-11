@@ -103,8 +103,6 @@
     @forelse($bookingsland as $bookingland)
         <div class="card">
             <p><strong>Boarding House:</strong> {{ $bookingland->property_name }}</p>
-            <p><strong>Landlord:</strong> {{ $bookingland->landlord_name }}</p>
-            <p><strong>Landlord Contact:</strong> {{ $bookingland->landlord_contact }}</p>
             <p><strong>Available in:</strong> {{ \Carbon\Carbon::parse($bookingland->booking_date)->format('F j, Y g:i A') }}</p>
             <p><strong>Total Reserved:</strong> {{ $bookingland->bookings_count }}</p>
 

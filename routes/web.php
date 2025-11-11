@@ -123,6 +123,9 @@ Route::middleware(['auth', 'verified'])->group(function () {
     // Admin deleting tenant bookings
     Route::delete('/admin/tenant-booking/{id}', [AdminController::class, 'deleteTenantBooking'])->name('admin.tenantbooking.delete');
 });
+Route::get('/dashboard/landlord/reservations', [LandlordController::class, 'reservations'])
+    ->name('landlord.reservations');
+
 
 
 require __DIR__ . '/auth.php';

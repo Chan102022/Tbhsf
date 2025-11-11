@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\LandlordSuggestion;
 use App\Models\LandlordAdding;
 
+
 class LandlordController extends Controller
 {
     // Show suggestion form
@@ -72,15 +73,33 @@ class LandlordController extends Controller
 
     // Delete a property added by landlord
     public function destroy($id)
-    {
-        $bookingland = LandlordAdding::where('id', $id)
-            ->where('user_id', auth()->id()) // only allow the owner to delete their own property
-            ->firstOrFail();
+{
+    // Find the property belonging to the current landlord
+    $property = LandlordAdding::where('id', $id)
+        ->where('user_id', auth()->id())
+        ->firstOrFail();
 
-        $bookingland->delete();
+    // Mark all related tenant bookings as invalid
+    $property->bookings()->update(['status' => 'invalid']);
 
-        return redirect()->back()->with('success', 'Boarding house deleted successfully!');
-    }
+    // Soft delete the property
+    $property->delete();
+
+    return redirect()->back()->with('success', 'Boarding house deleted successfully. All related bookings are now marked as invalid.');
+}
+public function reservations()
+{
+    $properties = LandlordAdding::where('user_id', auth()->id())
+        ->with(['bookings.tenant']) // eager load tenant info
+        ->latest()
+        ->get();
+
+    return view('dashboard.landlord.reservations', compact('properties'));
+}
+
+
+
+
     
     
 }
