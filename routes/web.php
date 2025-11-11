@@ -92,19 +92,24 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
         Route::get('/landlord/suggestion', [LandlordController::class, 'create'])->name('landlord.suggestion.form');
         Route::post('/landlord/suggestion', [LandlordController::class, 'store'])->name('landlord.suggestion.submit');
+         Route::get('/landlord/profiles', [LandlordController::class, 'landlordprofile'])->name('landlord.profiles');
 
         Route::get('/landlord/boarding/add', function () {
             return view('dashboard.landlord.addBoarding');
         })->name('landlord.boarding.add');
         Route::post('/landlord/boarding/store', [LandlordController::class, 'storeBoarding'])->name('landlord.boarding.store');
 
-        Route::get('/landloard/suggestions', function () {
+        Route::get('/landlord/suggestions', function () {
             return view('dashboard.landlord.suggestionForm');
         })->name('landlord.suggest');
 
-        Route::get('/landloard/adding', function () {
+        Route::get('/landlord/adding', function () {
             return view('dashboard.landlord.addBoarding');
         })->name('landlord.add');
+
+       Route::delete('/landlord/boarding/{id}', [LandlordController::class, 'destroy'])
+    ->name('landlord.adding.delete');
+
        
 
     });

@@ -8,7 +8,7 @@ use App\Models\LandlordAdding;
 
 class LandlordController extends Controller
 {
-    // Show the suggestion form
+    // Show suggestion form
     public function create()
     {
         return view('dashboard.landlord.suggestionForm');
@@ -25,8 +25,9 @@ class LandlordController extends Controller
 
         LandlordSuggestion::create($validated);
 
-        return redirect()->route('landlord.suggestion.form')
-                         ->with('success', 'Suggestion submitted successfully!');
+        return redirect()
+            ->route('landlord.suggestion.form')
+            ->with('success', 'Suggestion submitted successfully!');
     }
 
     // Handle boarding house submission
@@ -39,7 +40,7 @@ class LandlordController extends Controller
             'property_description' => 'required|string|max:1000',
             'property_price' => 'required|string|max:255',
             'adding_date' => 'required|date',
-            'image' => 'nullable|image|mimes:jpg,jpeg,png|max:2048', // 2MB max
+            'image' => 'nullable|image|mimes:jpg,jpeg,png|max:2048',
             'latitude' => 'nullable|numeric',
             'longitude' => 'nullable|numeric',
         ]);
@@ -50,12 +51,30 @@ class LandlordController extends Controller
             $validated['image'] = $imagePath;
         }
 
-        // Add the authenticated landlord ID (if applicable)
+        // Attach landlord (logged-in user)
         $validated['user_id'] = auth()->id();
 
-        // Save record to database
         LandlordAdding::create($validated);
 
         return redirect()->back()->with('success', 'Boarding house added successfully!');
+    }
+
+    // Show all properties added by landlord
+    public function landlordprofile()
+    {
+        $bookingsland = LandlordAdding::where('user_id', auth()->id())->latest()->get();
+        return view('dashboard.landlord.profile', compact('bookingsland'));
+    }
+
+    // Delete a property added by landlord
+    public function destroy($id)
+    {
+        $bookingland = LandlordAdding::where('id', $id)
+            ->where('user_id', auth()->id()) // only allow the owner to delete their own property
+            ->firstOrFail();
+
+        $bookingland->delete();
+
+        return redirect()->back()->with('success', 'Boarding house deleted successfully!');
     }
 }
