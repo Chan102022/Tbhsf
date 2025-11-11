@@ -105,6 +105,12 @@
             <p><strong>Boarding House:</strong> {{ $booking->property_name }}</p>
             <p><strong>Landlord:</strong> {{ $booking->landlord_name }}</p>
             <p><strong>Landlord Contact:</strong> {{ $booking->landlord_contact }}</p>
+            <p><strong>Reservation Status:</strong>  <span class="status 
+                        @if($booking->status === 'approved') status-approved
+                        @elseif($booking->status === 'cancelled') status-cancelled
+                        @else status-pending @endif">
+                        {{ ucfirst($booking->status ?? 'Pending') }}
+                    </span></p>
             <p><strong>Booking Date:</strong> {{ \Carbon\Carbon::parse($booking->booking_date)->format('F j, Y g:i A') }}</p>
 
             @if($booking->image)

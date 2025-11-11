@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\LandlordSuggestion;
 use App\Models\LandlordAdding;
+use App\Models\TenantBooking;
+
 
 
 class LandlordController extends Controller
@@ -96,6 +98,19 @@ public function reservations()
 
     return view('dashboard.landlord.reservations', compact('properties'));
 }
+public function updateBookingStatus(Request $request, $bookingId)
+{
+    $request->validate([
+        'status' => 'required|in:pending,approved,cancelled',
+    ]);
+
+    $booking = TenantBooking::findOrFail($bookingId);
+    $booking->status = $request->status;
+    $booking->save();
+
+    return redirect()->back()->with('success', 'Booking status updated successfully.');
+}
+
 
 
 

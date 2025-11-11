@@ -125,6 +125,9 @@ Route::middleware(['auth', 'verified'])->group(function () {
 });
 Route::get('/dashboard/landlord/reservations', [LandlordController::class, 'reservations'])
     ->name('landlord.reservations');
+    Route::patch('/landlord/reservations/{booking}/status', [LandlordController::class, 'updateBookingStatus'])
+    ->name('landlord.booking.updateStatus');
+
 
 
 

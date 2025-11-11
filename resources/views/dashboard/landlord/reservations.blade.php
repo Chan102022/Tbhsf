@@ -70,6 +70,21 @@
     .status-approved { background-color: #27ae60; color: #fff; }
     .status-cancelled { background-color: #e74c3c; color: #fff; }
 
+    .status-dropdown {
+    padding: 4px 8px;
+    border-radius: 5px;
+    font-weight: bold;
+    border: none;
+    cursor: pointer;
+    color: #01236cf2;
+    background-color: #f1c40f;
+}
+
+.status-dropdown option[selected="selected"] {
+    font-weight: bold;
+}
+
+
 </style>
 
 <h2 class="h2">Tenant Reservations</h2>
@@ -87,14 +102,17 @@
                 <p><strong>Email:</strong> {{ $booking->tenant->email }}</p>
                  <p><strong>Contact:</strong> {{ $booking->tenant->contact }}</p>
                 <p><strong>Reserved At:</strong> {{ \Carbon\Carbon::parse($booking->created_at)->format('F j, Y g:i A') }}</p>
-                <p><strong>Status:</strong> 
-                    <span class="status 
-                        @if($booking->status === 'approved') status-approved
-                        @elseif($booking->status === 'cancelled') status-cancelled
-                        @else status-pending @endif">
-                        {{ ucfirst($booking->status ?? 'Pending') }}
-                    </span>
-                </p>
+                <p><strong>Status:</strong></p>
+<form action="{{ route('landlord.booking.updateStatus', $booking->id) }}" method="POST">
+    @csrf
+    @method('PATCH')
+    <select name="status" onchange="this.form.submit()" class="status-dropdown">
+        <option value="pending" {{ $booking->status === 'pending' ? 'selected' : '' }}>Pending</option>
+        <option value="approved" {{ $booking->status === 'approved' ? 'selected' : '' }}>Approved</option>
+        <option value="cancelled" {{ $booking->status === 'cancelled' ? 'selected' : '' }}>Cancelled</option>
+    </select>
+</form>
+
 
                 @if($property->latitude && $property->longitude)
                     <div id="map-{{ $booking->id }}" class="map-container"></div>
